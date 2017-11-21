@@ -6,4 +6,4 @@ module.exports = {
 
 function loaded(ripple) {
   ripple.loadedResdir = arguments
-}                                                                                                                                
+}                                                                                                                                                              

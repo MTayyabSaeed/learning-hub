@@ -71,4 +71,7 @@ const { resolve, basename, extname } = require('path')
     , lo = require('utilise/lo')
     , log = require('utilise/log')('[ri/resdir]')
     , err = require('utilise/err')('[ri/resdir]')
-    , loaded = ripple => res => is.fn(res.headers.loaded) && res.headers.loaded(ripple, res)
+    , loaded = ripple => async res => {
+        await (is.fn(res.headers.loaded) && res.headers.loaded(ripple, res))
+        ripple.emit('loaded', res.name)
+      }

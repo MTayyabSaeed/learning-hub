@@ -214,4 +214,26 @@ describe('Resources Folder', function(){
     })
   })
 
+  it('should emit loaded events', function(done){  
+    var ripple = resdir(fn(css(core())))
+      , expected = [
+          'bar.css'
+        , 'data'
+        , 'foo'
+        , 'promise'
+        , 'tertiary'
+        , 'secondary'
+        , 'component.css'
+        , 'component'
+        , 'sth'
+        ].sort()
+
+    ripple
+      .on('loaded')
+      .reduce((acc = [], d) => acc.concat(d))
+      .filter(acc => acc.length == 9)
+      .then(acc => expect(acc.sort()).to.be.eql(expected))
+      .then(() => done())
+  })
+
 })
