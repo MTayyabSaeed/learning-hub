@@ -1,14 +1,17 @@
+/*I am commenting this code to active the normal bootstrap and other css files*/
+
+/*
 
 input[type="text"], 
 input[type="password"], 
 textarea, 
 textarea.form-control {
-	height: 50px;
+	height: 40px;
     margin: 0;
     padding: 0 20px;
     vertical-align: middle;
     background: #f8f8f8;
-    border: 3px solid #ddd;
+    border: 0px solid #ddd;
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     font-weight: 300;
@@ -48,7 +51,7 @@ textarea::-webkit-input-placeholder, textarea.form-control::-webkit-input-placeh
 
 
 button.btn {
-	height: 50px;
+	height: 30px;
     margin: 0;
     padding: 0 20px;
     vertical-align: middle;
@@ -72,3 +75,4 @@ button.btn:active { outline: 0; opacity: 0.6; color: #fff; -moz-box-shadow: none
 button.btn:focus { outline: 0; opacity: 0.6; background: #4aaf51; color: #fff; }
 
 button.btn:active:focus, button.btn.active:focus { outline: 0; opacity: 0.6; background: #4aaf51; color: #fff; }
+*/
