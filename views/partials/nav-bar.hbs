@@ -1,15 +1,10 @@
+
 <div>
-
-<!--
-Write your code here!
--->
-
     <!--This is the navigation bar code here and its generic means it would appear on everypage. My location is views/partials/header-->
-
     <nav class="navbar navbar-inverse bg-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a href="/" class="navbar-brand"><b>LearningHub</b></a>
+                <a href="/" class="active navbar-brand">{{title}}</a>
 
                 <!--Toggle button when the screen gets collapsed-->
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainNavBar">
@@ -26,8 +21,8 @@ Write your code here!
                     <li class="active"><a href="/">Home</a></li>
                     <li><a href="#">All Courses</a></li>
                     <li><a href="#">About</a></li>
-                    <!--Reference the faq page here. I would keep this path: "faqs/faqs.html"-->
-                    <li><a href="#">FAQ</a></li>
+                    <!--Reference the faq page here. I would keep this path: "/faqs has been set to faqs/faqs.hbs" in the router/index.js-->
+                    <li><a href="/faqs">FAQ</a></li>
 
                     <!--Search bar with search button-->
                     <li>
