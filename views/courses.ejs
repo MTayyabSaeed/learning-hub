@@ -1,0 +1,51 @@
+<html lang="en">
+
+   <%- include header %>
+   <!-- Main component for a primary marketing message or call to action -->
+   
+     <%- include left_sidebar %>
+      <div class=" section_outer jumbotron col-sm-9" id="mainform">
+            <div id="signupbox" style="" class="">
+                                                           
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <div class="panel-title pull-left">My Courses</div>
+                            <div class="pull-right"><a id="signinlink" href="/create">Create a course</a></div>
+							<div class="clear"></div>
+                        </div> 
+                        <div class="panel-body" >
+						<% if (message.length > 0) { %>
+						<div class="alert alert-success col-sm-12"><%= message %></div>
+						<% } %>
+						
+						
+						<ul class="all_border custom_list">
+						<% 
+						var i =1;
+						data.forEach(function(ind){ %>
+						<li class="grid">
+						<div class="nt-column-list">
+						<div class="icon_list">
+						<a class="" href="/viewCourse/<%=ind.course_id%>"><img src="http://localhost:8080/public/images/eye.png" alt="no image"></a>
+						<a class="" href="/edit_course/<%=ind.course_id%>"><img src="http://localhost:8080/public/images/edit.png" alt="no image"></a>
+						<form style="display:inline-block" action="" method="post"><input name="course_id" value="<%=ind.course_id%>" type="hidden"><button class="" type="submit" value="Delete" name="delete"><img src="http://localhost:8080/public/images/delete.png" alt="no image"></button></form>
+						</div>
+						<h2><%=ind.course_title%></h2>
+						<ul>
+						<li>
+						<%=ind.course_des%>
+						</li>
+						</ul>
+						</div>
+						</li>
+							<% i++ }) %>
+							<div class="clear"></div>
+						</ul>
+
+                         </div>
+                    </div>
+              
+                
+         </div>
+      </div>
+    <%- include footer %>

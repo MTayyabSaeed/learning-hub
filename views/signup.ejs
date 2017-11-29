@@ -1,0 +1,105 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sample Site</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
+   <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+    
+</head>
+<body>
+<style type="text/css">
+.panel-info>.panel-heading {
+    color: #fff !important;
+    background-color: #363636 !important;
+    border-color: #363636 !important;
+}
+.panel-info{border-color: #363636 !important;}
+a#signinlink {
+    color: #fff;
+}
+
+a#signinlink:hover {
+    text-decoration: none;
+}
+.btn {background: #39b5cf;
+    border-radius: 0;
+    font-size: 13px;
+    border-color: #39b5cf;}
+	.btn:hover{
+	    color: #fff;
+    background-color: #363636;
+    border-color: #363636;
+	}
+</style>
+    <div class="container col-sm-12" id="mainform">
+            <div id="signupbox" style=" margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                                                           
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <div class="panel-title pull-left">Sign Up</div>
+                            <div class="pull-right"><a id="signinlink" href="/">Sign In</a></div>
+							<div style="clear:both;display:block"></div>
+                        </div> 
+                        <div class="panel-body" >
+                            <form class="form-horizontal" role="form" method="post" action="/signup" onSubmit="return checkblank(this);">
+							<% if (message.length > 0) { %>
+							<div class="alert alert-success col-sm-12"><%= message %></div>
+							<% } %> 
+                                <div class="form-group">
+                                    <label for="first_name" class="col-md-3 control-label">First Name*</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" name="first_name" placeholder="First Name" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="last_name" class="col-md-3 control-label">Last Name</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" name="last_name" placeholder="Last Name">
+                                    </div>
+                                </div>
+								                                <div class="form-group">
+                                    <label for="email" class="col-md-3 control-label">Email*</label>
+                                    <div class="col-md-9">
+                                        <input type="email" class="form-control" name="email" placeholder="Email" required>
+                                    </div>
+                                </div>
+                                                                                                <div class="form-group">
+                                    <label for="mob_no" class="col-md-3 control-label">Mobile Number</label>
+                                    <div class="col-md-9">
+                                        <input type="number" class="form-control" name="mob_no" placeholder="Mobile Number">
+                                    </div>
+                                </div>
+                                                                                                <div class="form-group">
+                                    <label for="user_name" class="col-md-3 control-label">User Name*</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" name="user_name" placeholder="User Name" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password" class="col-md-3 control-label">Password*</label>
+                                    <div class="col-md-9">
+                                        <input type="password" class="form-control" name="password" placeholder="Password" required>
+                                    </div>
+                                </div>
+ 
+                                <div class="form-group">
+                                    <!-- Button -->                                       
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <button id="btn-signup" type="submit" class="btn btn-info"><i class="icon-hand-right"></i> &nbsp Sign Up</button>
+                                        
+                                    </div>
+                                </div>
+                               
+                                
+                                
+                                
+                            </form>
+                         </div>
+                    </div>
+              
+                
+         </div>
+    </div>
+   
+</body>
+</html>
