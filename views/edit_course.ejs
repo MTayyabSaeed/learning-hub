@@ -1,0 +1,53 @@
+<html lang="en">
+
+   <%- include header %>
+     <%- include left_sidebar %>
+   <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron col-sm-9" id="mainform">
+            <div id="signupbox" style=" margin-top:5px" class="mainbox">
+                                                           
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <div class="panel-title">Edit course</div>
+                        </div> 
+                        <div class="panel-body" >
+                            <form class="form-horizontal" role="form" method="post" action="" onSubmit="return checkblank(this);">
+                                <% if (message.length > 0) { %>
+                               <div class="alert alert-success col-sm-12"><%= message %></div>
+                              <% } %>
+                                <div id="signupalert" style="display:none" class="alert alert-danger">
+                                    <p>Error:</p>
+                                    <span></span>
+                                </div>
+                                    
+                                <div class="form-group">
+                                    <label for="course_title" class="col-md-3 control-label">Course Title</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" name="course_title" placeholder="Course Title" value="<%= data[0].course_title%>" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="course_des" class="col-md-3 control-label">Description</label>
+                                    <div class="col-md-9">
+                                        <textarea class="form-control" name="course_des"><%= data[0].course_des%></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <!-- Button -->                                       
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <button id="btn-signup" type="submit" class="btn btn-info"><i class="icon-hand-right"></i> &nbsp Submit</button>
+                                        
+                                    </div>
+                                </div>
+                               
+                                
+                                
+                                
+                            </form>
+                         </div>
+                    </div>
+              
+                
+         </div>
+      </div>
+    <%- include footer %>

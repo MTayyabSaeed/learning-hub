@@ -1,0 +1,17 @@
+<html lang="en">
+
+   <%- include header %>
+   <!-- Main component for a primary marketing message or call to action -->
+   <%- include left_sidebar %>
+	 <div class="jumbotron col-md-10">
+        <h1 style="text-align:center; border:1px solid #999">Advertisement</h1>
+		<% if (id > 0) { %>
+        <p style="text-align:center; margin-top: 90px;">
+          <a  class="btn btn-lg btn-primary" href="/create" role="button">Create a Course»</a>
+        </p>
+		<% } %>
+      </div>
+    <%- include footer %>
+	
+	
+	
