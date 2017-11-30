@@ -1,4 +1,5 @@
 var express = require('express');
+var tes = require('../model/signupuser.js');
 var router = express.Router();
 
 /* GET home page. */
@@ -40,6 +41,15 @@ router.get('/login', function(req, res, next) {
 /* GET sign up page....... this has been changed but kept for copying the code*/
 router.get('/signup', function(req, res, next) {
   res.render('user/signup', { title: 'Learning Hub' });
+});
+
+/* GET sign up page....... this has been changed but kept for copying the code*/
+router.get('/test', function(req, res, next) {
+    res.render('homepage/index', { title: 'Learning Hub' });
+});
+
+router.post('/signupuser', function(req, res, next) {
+    tes.get_recent(req,res)
 });
 
 

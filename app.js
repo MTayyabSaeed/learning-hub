@@ -8,6 +8,8 @@ var expressHbs=require('express-handlebars');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var router = express.Router();
+require('./model/database-connection');
 
 var app = express();
 
@@ -30,24 +32,34 @@ app.use('/users', users);
 app.engine('.hbs',expressHbs({defaultLayout: 'layout',extname:'.hbs'}));
 app.set('view engine', '.hbs');
 
-require('./model/database-connection');
+
+
+
+
+//app.get('/signup', usersignup.signupte);
+
+/* GET sign up page....... this has been changed but kept for copying the code*/
+// router.get('signupUser', function(req, res, next) {
+//     res.render('homepage/index', { title: 'Learning Hub' });
+// });
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
 });
 
 module.exports = app;

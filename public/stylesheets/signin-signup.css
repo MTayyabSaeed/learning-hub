@@ -1,0 +1,38 @@
+.panel-info>.panel-heading {
+    color: #fff !important;
+    background-color: #363636 !important;
+    border-color: #363636 !important;
+}
+.panel-info{border-color: #363636 !important;}
+a#signinlink {
+    color: #39b5cf;
+    font-size: 16px;
+}
+
+a#signinlink:hover {
+    text-decoration: none;
+    font-size: 24px;
+    color: #de4d4e;
+}
+.btn {
+    background: #39b5cf;
+    border-radius: 3px;
+    font-size: 13px;
+}
+.btn:hover{
+    color: lightgrey;
+    background-color: #62c2e4;
+    border-color: #363636;
+}
+#signupid{
+    font-size: 22px;
+    border-color: #39b5cf;
+    color: royalblue;
+    font-weight: 400;
+}
+#signinid{
+    font-size: 22px;
+    border-color: #39b5cf;
+    color: royalblue;
+    font-weight: 400;
+}
