@@ -3,7 +3,6 @@
 <link rel="stylesheet" type="text/css" href="/public/stylesheets/style.css">
 <!--advertLine-->
 <div class="container">
-
     <hr class="pretty-line">
     <br>
     <center>
@@ -11,8 +10,7 @@
         <h1>Advert for our main courses</h1>
         <h3>You need to sign in or sign up to see our courses</h3>
         <br>
-        <!--<button class="btn btn-primary btn-lg" href="/signup">Sign In/Sign Up</button>-->
-        <!--How can the above button can be connected to reference-->
+        <button class="btn btn-primary btn-lg" href="#myModal" data-toggle="modal">Sign In/Sign Up</button>
     </center>
     <br>
     <hr class="pretty-line">
@@ -24,9 +22,23 @@
 <div>
     <center>
         <strong>
-            <p>Here would come the code for displaying the courses</p>
+            <p>Always ask for help where to put the code in the project folders.</p>
+            <p>Me (Tayyab) and Waqaace can help with that.</p>
         </strong>
         <!--You can add the container for the content in this place. My location is view/homepage/index.hbs-->
     </center>
 </div>
+<center>
+<p>Here would come the code for displaying the courses</p>
+</center>
 
+
+
+
+{{#if errors}}
+<div class="alert alert-danger">
+   <li>{{#each errors}}
+            {{this.msg}}
+    {{/each}}</li>
+</div>
+{{/if}}

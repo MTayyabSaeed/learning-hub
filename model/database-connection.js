@@ -3,9 +3,8 @@ var connection = mysql.createConnection({
     host     : 'localhost',
     user     : 'root',
     password : '',
-    database : 'learning_hub'
+    database : 'Learning hub'
 });
-
 connection.connect(function(err){
     if(!err) {
         console.log("Database is connected ...");
@@ -16,4 +15,4 @@ connection.connect(function(err){
     }
 });
 
-global.db = connection
+module.exports = connection;
