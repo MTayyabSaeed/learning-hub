@@ -1,9 +1,7 @@
-<link rel="stylesheet" type="text/css" href="/public/stylesheets/style.css">
 
-<body>
 <div>
     <!--This is the navigation bar code here and its generic means it would appear on everypage. My location is views/partials/header-->
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-inverse bg-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
                 <a href="/" class="active navbar-brand">{{title}}</a>
@@ -37,18 +35,33 @@
                     </li>
                 </ul>
 
+
+
                 <!--Sign in and sign up menus-->
                 <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <!--here is the name of the id for Sign In: #myModal-->
-                        <a href="/login">Sign In</a>
-                    </li>
-                    <li><a href="/signup">Sign Up</a> </li>
+
+
+                {{#if isAuthenticated}}
+
+                    <li><a href="/logout">Log out</a> </li>
+                {{else}}
+                    <li><a href="#myModal" data-toggle="modal">Sign In</a></li>
+                    <li><a href="#">Sign Up</a> </li>
+                {{/if}}
+
+
+
                 </ul>
+
+
+
+
+
+
             </div>
         </div>
     </nav>
-    <!--&lt;!&ndash; Modal &ndash;&gt;
+    <!-- Modal -->
     <div class="modal fade bs-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
@@ -66,27 +79,31 @@
                             <p>We need this information so that you can receive access to the site and its content. Rest assured your information will not be sold, traded, or given to anyone.</p>
                             <p></p><br> Please contact <a mailto:href="tayyab.saeed05@gmail.com"></a>tayyab.saeed05@gmail.com</a> for any other inquiries.</p>
                         </div>
+
+
+
+                        <!-------------Signin form-------------->
                         <div class="tab-pane fade active in" id="signin">
-                            <form class="form-horizontal">
+                            <form class="form-horizontal" method="post" action="login" >
                                 <fieldset>
-                                    &lt;!&ndash; Sign In Form &ndash;&gt;
-                                    &lt;!&ndash; Sign In text input&ndash;&gt;
+                                    <!-- Sign In Form -->
+                                    <!-- Sign In text input-->
                                     <div class="control-group">
                                         <label class="control-label" for="userIdSignIn">Username:</label>
                                         <div class="controls">
-                                            <input id="userIdSignIn" name="userIdSignIn" type="text" class="form-control" placeholder="Username" class="input-medium" required>
+                                            <input id="userIdSignIn" type="text" name="username" type="text" class="form-control" placeholder="Username" class="input-medium" required>
                                         </div>
                                     </div>
 
-                                    &lt;!&ndash; Sign In password input&ndash;&gt;
+                                    <!-- Sign In password input-->
                                     <div class="control-group">
                                         <label class="control-label" for="passwordInput">Password:</label>
                                         <div class="controls">
-                                            <input id="passwordInput" name="passwordInput" class="form-control" type="password" placeholder="********" class="input-medium" required>
+                                            <input id="passwordInput" name="password" class="form-control" type="password" placeholder="********" class="input-medium" required>
                                         </div>
                                     </div>
 
-                                    &lt;!&ndash;                                &lt;!&ndash; Multiple Checkboxes (inline) &ndash;&gt;
+                                    <!--                                &lt;!&ndash; Multiple Checkboxes (inline) &ndash;&gt;
                                                                     <div class="control-group">
                                                                         <label class="control-label" for="rememberme-0"></label>
                                                                         <div class="controls">
@@ -96,8 +113,8 @@
                                                                             </label>
                                                                         </div>
                                                                     </div>
-                                    &ndash;&gt;
-                                    &lt;!&ndash; Sign In Button &ndash;&gt;
+                                    -->
+                                    <!-- Sign In Button -->
                                     <div class="control-group">
                                         <label class="control-label" for="signInButton"></label>
                                         <div class="controls">
@@ -107,38 +124,41 @@
 
                                 </fieldset>
                             </form>
+                            <!-------------------------------------------------------------------------->
                         </div>
+                        <!------------------------------ Signup Form ---------------------------------------------------------------------->
                         <div class="tab-pane fade" id="signup">
-                            <form class="form-horizontal">
+
+                            <form class="form-horizontal" method="post" action="/register" c>
                                 <fieldset>
-                                    &lt;!&ndash; Sign Up Form &ndash;&gt;
-                                    &lt;!&ndash; Text input&ndash;&gt;
+                                    <!-- Sign Up Form -->
+                                    <!-- Text input-->
                                     <div class="control-group">
                                         <label class="control-label" for="EmailSignUp">Email:</label>
                                         <div class="controls">
-                                            <input id="EmailSignUp" name="EmailSignUp" class="form-control input-large" type="text" placeholder="YourEmail@example.com" required>
+                                            <input id="EmailSignUp" name="email" class="form-control input-large" type="text" placeholder="YourEmail@example.com" required>
                                         </div>
                                     </div>
 
-                                    &lt;!&ndash; Text input&ndash;&gt;
+                                    <!-- Text input-->
                                     <div class="control-group">
-                                        <label class="control-label" for="userNameSignUp">Username</label>
+                                        <label class="control-label" for="userIdSignUp">Alias:</label>
                                         <div class="controls">
-                                            <input id="userNameSignUp" name="userNameSignUp" class="form-control input-large" type="text" placeholder="Username" required>
+                                            <input id="userIdSignUp" name="username" class="form-control input-large" type="text" placeholder="Username" required>
                                         </div>
                                     </div>
 
-                                    &lt;!&ndash; Password input&ndash;&gt;
+                                    <!-- Password input-->
                                     <div class="control-group">
                                         <label class="control-label" for="passwordSignUp">Password:</label>
                                         <div class="controls">
-                                            <input id="passwordSignUp" name="passwordSignUp" class="form-control input-large" type="password" placeholder="********" required>
+                                            <input id="passwordSignUp" name="password" class="form-control input-large" type="password" placeholder="********" required>
                                             <em>1-8 Characters</em>
                                         </div>
                                     </div>
 
-                                    &lt;!&ndash; Text input&ndash;&gt;
-                                    &lt;!&ndash;                 <div class="control-group">
+                                    <!-- Text input-->
+                                    <!--                 <div class="control-group">
                                                          <label class="control-label" for="reEnterPassword">Re-Enter Password:</label>
                                                          <div class="controls">
                                                              <input id="reEnterPassword" class="form-control" name="reEnterPassword" type="password" placeholder="********" class="input-large" required="">
@@ -156,8 +176,8 @@
                                                                  <input type="radio" name="humancheck" id="humancheck-1" value="human">I'm Human</label>
                                                          </div>
                                                      </div>
-                     &ndash;&gt;
-                                    &lt;!&ndash; Button &ndash;&gt;
+                     -->
+                                    <!-- Button -->
                                     <div class="control-group">
                                         <label class="control-label" for="confirmSignUp"></label>
                                         <div class="controls">
@@ -177,6 +197,4 @@
             </div>
         </div>
     </div>
--->
 </div>
-</body>

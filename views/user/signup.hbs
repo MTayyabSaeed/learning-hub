@@ -1,57 +1,53 @@
+<div class="top-content">
 
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
-<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
-<link rel="stylesheet" type="text/css" href="../stylesheets/signin-signup.css">
+    <div class="inner-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 form-box">
+                    <div class="form-top">
+                        <div class="form-top-left">
+                            <h3>Signup to Learning Hub</h3>
 
-<div class="container col-sm-12 center" id="mainform">
-    <div id="signupbox" style=" margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <div class="panel-title pull-left" id="signupid">Sign Up</div>
-                <div class="pull-right"><a id="signinlink" href="/login">Sign In</a></div>
-                <div style="clear:both;display:block"></div>
+                        </div>
+
+                    </div>
+                    <div class="form-bottom">
+                        <form role="form" action="" method="post" class="login-form">
+                            <div class="form-group">
+                                <label class="sr-only" for="form-username">Username</label>
+                                <input type="text" name="form-username" placeholder="Username..." class="form-username form-control" id="form-username">
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="form-username">Email</label>
+                                <input type="text" name="form-username" placeholder="Email..." class="form-username form-control" id="form-username">
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="form-password">Password</label>
+                                <input type="password" name="form-password" placeholder="Password..." class="form-password form-control" id="form-password">
+                            </div>
+                            <button type="submit" class="btn">Sign in!</button>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="panel-body" >
-                <form class="form-horizontal" role="form" method="post" action="/signupuser" onSubmit="return checkblank(this);">
-<!--                    <% if (message.length > 0) { %>
-                <div class="alert alert-success col-sm-12"><%= message %></div>
-                <% } %>-->
-                    <div class="form-group">
-                        <label for="first_name" class="col-md-3 control-label">Username*</label>
-                        <div class="col-md-9">
-                            <input type="text" name="username" placeholder="Username" class="form-username form-control" id="form-username" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="email" class="col-md-3 control-label">Email*</label>
-                        <div class="col-md-9">
-                            <input type="email" class="form-control" name="useremail" placeholder="Email" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="email" class="col-md-3 control-label">User Type*</label>
-                        <div class="col-md-4">Student
-                            <input type="radio" class="form-control" name="radiouser" value="Student" required>
-                        </div>
-                        <div class="col-md-4">Instructor
-                            <input type="radio" class="form-control" name="radiouser" value="Instructor" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="password" class="col-md-3 control-label">Password*</label>
-                        <div class="col-md-9">
-                            <input type="password" class="form-control" name="userpassword" placeholder="Password" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                    <!-- Button -->
-                        <div class="col-md-offset-3 col-md-9">
-                            <button id="btn-signup" type="submit" class="btn btn-info btn-block"><i class="icon-hand-right"></i> &nbsp Sign Up</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
+            <!--<div class="row">-->
+            <!--<div class="col-sm-6 col-sm-offset-3 social-login">-->
+            <!--<h3>...or login with:</h3>-->
+            <!--<div class="social-login-buttons">-->
+            <!--<a class="btn btn-link-1 btn-link-1-facebook" href="#">-->
+            <!--<i class="fa fa-facebook"></i> Facebook-->
+            <!--</a>-->
+            <!--<a class="btn btn-link-1 btn-link-1-twitter" href="#">-->
+            <!--<i class="fa fa-twitter"></i> Twitter-->
+            <!--</a>-->
+            <!--<a class="btn btn-link-1 btn-link-1-google-plus" href="#">-->
+            <!--<i class="fa fa-google-plus"></i> Google Plus-->
+            <!--</a>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
         </div>
     </div>
-</div>
 
+</div>
+<script src="../javascripts/scripts.js"></script>
