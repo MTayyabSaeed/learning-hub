@@ -26,7 +26,7 @@ router.get('/instructor/instructor-profile', function(req, res, next) {
 
 
 
-router.get('/sockets', function(req, res, next) {
+router.get('/Forum', function(req, res, next) {
     res.render('sockets/sockets', { title: 'Learning Hub' });
 
 
