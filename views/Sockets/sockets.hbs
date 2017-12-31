@@ -1,23 +1,22 @@
-<style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font: 13px Helvetica, Arial; }
-    form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
-    form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
-    form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
-    #messages { list-style-type: none; margin: 0; padding: 0; }
-    #messages li { padding: 5px 10px; }
-    #messages li:nth-child(odd) { background: #eee; }
-</style>
+<h1>Forum</h1>
 
-<ul id="messages"></ul>
+<div class="row">
 
-<div><form action="">
+<div class="" id="messages" style="height: auto"><b id="name"></b></div>
 
-    <input id="m" autocomplete="off" /><button>Send</button>
 
-</form>
+<div class="well" style="position:fixed;right:100px;top:35%; ">
+
+    <form  action="">
+
+        <div class="form-group">
+            <label for="comments">Your comment</label>
+            <textarea class="form-control" name="textarea" id="m" rows="3"></textarea>
+        </div>
+        <button type="submit" name="create_comment" class="btn btn-primary">Submit</button>
+    </form>
 </div>
-
+</div>
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
@@ -31,7 +30,7 @@
         });
         socket.on('chat message', function(msg){
 
-            $('#messages').append($('<li>').text(msg));
+            $('#messages').append($('<div class="well"></div>').text(msg));
         });
     });
 </script>

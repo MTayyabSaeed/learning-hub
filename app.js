@@ -185,7 +185,7 @@ sockIO.on('connection', function(socket){
         sockIO.emit('chat message', msg);
         console.log(msg);
     });
-});
+   });
 /*=======================Sockets End=============================*/
 
 
