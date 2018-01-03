@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.7.20, for osx10.11 (x86_64)
 --
--- Host: localhost    Database: learning_hub
+-- Host: localhost    Database: learninghub
 -- ------------------------------------------------------
 -- Server version	5.7.19
 
@@ -16,12 +16,12 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Current Database: `learning_hub`
+-- Current Database: `learninghub`
 --
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `learning_hub` /*!40100 DEFAULT CHARACTER SET utf8 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `learninghub` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
-USE `learning_hub`;
+USE `learninghub`;
 
 --
 -- Table structure for table `users`

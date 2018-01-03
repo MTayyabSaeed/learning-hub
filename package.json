@@ -24,10 +24,12 @@
     "jquery": "^3.0.0",
     "morgan": "~1.8.1",
     "mysql": "^2.15.0",
+    "nodemon": "^1.14.6",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "popper": "^1.0.0",
     "randomstring": "^1.1.5",
-    "serve-favicon": "~2.4.2"
+    "serve-favicon": "~2.4.2",
+    "socket.io": "^2.0.4"
   }
 }

@@ -39,7 +39,7 @@ router.post('/register', function(req, res, next) {
     if(errors){
         res.render('homepage/index',{errors:errors});
         return}else{
-
+        const usertype = req.body.usertype;
         const saltRounds = 10;
         const email = req.body.email;
         const password= req.body.password;
@@ -50,8 +50,9 @@ router.post('/register', function(req, res, next) {
         bcrypt.genSalt(saltRounds, function (err,salt) {
             bcrypt.hash(myPlaintextPassword,salt,function (err,hash) {
                 const bcyptPassword = hash;
-                db.query('INSERT INTO user (username, email, password) VALUES (?,?,?)', [username, email, bcyptPassword],function (err, result, fields) {
+                db.query('INSERT INTO users (username, email, password,usertype) VALUES (?,?,?,?)', [username, email, bcyptPassword,usertype],function (err, result, fields) {
                     if(err)throw error;
+
                     res.render('after-login-page/after-login-page', { title: 'Registration Complete' , user: username});
                 })
             })
