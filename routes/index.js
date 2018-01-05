@@ -10,13 +10,13 @@ console.log(app.locals.username);
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-
-    res.render('homepage/index', {title: 'Learning Hub'});
+    res.render('layouts/layout', {title: 'Learning Hub' });
 });
 router.get('/forum', function (req, res, next) {
     res.render('sockets/sockets', {title: 'Learning Hub'});
 
 });
+
 
 /* GET student profile page. */
 router.get('/student', authenticationMiddleware(), function (req, res, next) {
@@ -48,8 +48,6 @@ router.get('/signup', function (req, res, next) {
 });
 
 router.get('/instructor', authenticationMiddleware(), function (req, res, next) {
-
-    res.render('instructor/instructorProfile', {for_frontend_username: "kit"});
 
     if (!res.locals.login_username) {
         var username = app.locals.username
@@ -178,6 +176,7 @@ function authenticationMiddleware() {
         console.log(`req.session.passport.user: ${JSON.stringify(req.session.passport)}`);
 
         if (req.isAuthenticated()) return next();
+        res.render('partials/nav-bar'); //todo  made changes here
 
     }
 }

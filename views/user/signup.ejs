@@ -1,0 +1,81 @@
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <!-- Latest compiled and minified CSS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>﻿
+    <!--The code runs without this line   <script type="text/javascript" src="Scripts/bootstrap.min.js"></script>    -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/pretty-line.css">
+    <title>Learning Hub</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../stylesheets/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+</head>
+<body>
+<div>
+    <% include ../partials/nav-bar %>
+
+<div class="container col-sm-12 center" id="mainform">
+    <div id="signupbox" style=" margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="panel-title pull-left" id="signupid">Sign Up</div>
+                <div class="pull-right"><a id="signinlink" href="/login">Sign In</a></div>
+                <div style="clear:both;display:block"></div>
+            </div>
+            <div class="panel-body" >
+                <form class="form-horizontal" role="form" method="post" action="/register" onSubmit="return checkblank(this);">
+
+                    <div class="form-group">
+                        <label for="first_name" class="col-md-3 control-label">Username*</label>
+                        <div class="col-md-9">
+                            <input id="userIdSignUp" name="username" class="form-control input-large" type="text" placeholder="Username" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="col-md-3 control-label">Email*</label>
+                        <div class="col-md-9">
+                            <input id="EmailSignUp" name="email" class="form-control input-large" type="email" placeholder="YourEmail@example.com" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="col-md-3 control-label">User Type*</label>
+                        <div class="col-md-4">Student
+                            <input type="radio" class="form-control" name="usertype" value="Student" >
+                        </div>
+                        <div class="col-md-4">Instructor
+                            <input type="radio" class="form-control" name="usertype" value="Instructor" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="col-md-3 control-label">Password*</label>
+                        <div class="col-md-9">
+                            <input id="passwordSignUp" name="password" class="form-control input-large" type="password" placeholder="********" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <!-- Button -->
+                        <div class="col-md-offset-3 col-md-9">
+                            <button id="btn-signup" type="submit" class="btn btn-info btn-block"><i class="icon-hand-right"></i> &nbsp Sign Up</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script src="../javascripts/scripts.js"></script>
+</body>
+</html>

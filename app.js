@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var path = require('path');
+var router = express.Router();
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -19,7 +20,7 @@ var bcrypt = require('bcrypt');
 //the user will not log out.The below code is use to store session in the data base.
 
 var MySQLStore = require('express-mysql-session')(session);
-
+// view engine setup
 
 var options = {
     host: 'localhost',
@@ -36,8 +37,10 @@ var sessionStore = new MySQLStore(options);
 
 var app = express();
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
+// app.set('view engine', 'hbs')
+// ;
+app.use(express.static(__dirname + '/public'));
+app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -63,6 +66,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 });
 console.log(key);*/
 
+
 app.use(session({
     secret: 'ViAxwhpbhmYm',
     resave: false, //On each refresh the session will update or not
@@ -70,21 +74,36 @@ app.use(session({
     saveUninitialized: false //whether or not crete session on each start of website or when only user is loign
     //cookie: {secure: true}
 
-}))
+}));
+
+
+// app.set('layout', 'layouts/layout');
+router.use('/', require('./routes/index'));
+
+/*app.get('/student', function (req, res) {
+    res.render('student/studentProfile', {for_frontend_username: "Tayyab"});
+
+});*/
+
+
+
 
 /*---------------------Passport-----------------------*/
 app.use(passport.initialize());
 app.use(passport.session());
 /*----------------------------------------------------*/
 
-/*--Creating the Global Variable that we can use at the hbs for disapearing login button when logedin----*/
+/*--Creating the Global Variable that we can use at the ejs for disapearing login button when logedin----*/
 /*This is the general middle ware*/
+//todo check the variable to function here
 app.use(function (req, res, next) {
-    res.locals.isAuthenticated = req.isAuthenticated();
-    res.locals.login_username = app.locals.username;
-    res.locals.usertype = app.locals.usertype;
+    res.locals = {
+        isAuthenticated : req.isAuthenticated(),
+        login_username : app.locals.username,
+        usertype : app.locals.usertype
+    };
     next();
-})
+});
 
 /*-----------------------------------------------------------------------------------*/
 app.use('/', index);
@@ -95,8 +114,8 @@ app.use('/users', users);
 passport.use(new LocalStrategy(
     function (username, password, done) {
         //we are getting username and password from the form
-             const db = require('./model/database-connection');
-             db.query('SELECT usertype,password,id FROM user WHERE username = ?', [username], function (err, result, fields) {
+        const db = require('./model/database-connection');
+        db.query('SELECT usertype,password,id FROM user WHERE username = ?', [username], function (err, result, fields) {
 
             //iF THE PASSWORD DOES MATCH found or USER DOES NOT EXIST THEN WE ASSIGN RESULT.LENGTH===0
             //Here the result index 0 has password which is not proper form so we access the
@@ -110,7 +129,7 @@ passport.use(new LocalStrategy(
             app.locals.usertype = usertype;
             app.locals.username = username;
 
-             //variable decaled with app.locals have scope only to this file. when locals declared with res.locals.
+            //variable decaled with app.locals have scope only to this file. when locals declared with res.locals.
             // have scope to the whole project.
             //Here the bcrypt.compare , compare the password with the hash password, hash password is the password
             //we are getting from the data base, the 'password' field below is the password which user enters.
@@ -130,8 +149,8 @@ passport.use(new LocalStrategy(
 /*-------------------------------------------------------------------------------------*/
 
 // view engine setup
-app.engine('.hbs', expressHbs({defaultLayout: 'layout', extname: '.hbs'}));
-app.set('view engine', '.hbs');
+// app.engine('.hbs', expressHbs({defaultLayout: 'layout', extname: '.hbs'}));
+// app.set('view engine', '.hbs');
 
 require('./model/database-connection');
 
