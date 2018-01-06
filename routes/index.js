@@ -10,11 +10,7 @@ console.log(app.locals.username);
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    res.render('layouts/layout', {title: 'Learning Hub' });
-});
-router.get('/forum', function (req, res, next) {
-    res.render('sockets/sockets', {title: 'Learning Hub'});
-
+    res.render('homepage/index', {title: 'Learning Hub' });
 });
 
 
@@ -106,7 +102,7 @@ router.post('/register', function (req, res, next) {
     req.checkBody('username', 'Username can only contain letters, numbers, or underscores.').matches(/^[A-Za-z0-9_-]+$/, 'i');
     var errors = req.validationErrors();
     if (errors) {
-        res.render('homepage/index', {errors: errors});
+        res.render('user/signup', {errors: errors});
         return
     } else {
         const saltRounds = 10;

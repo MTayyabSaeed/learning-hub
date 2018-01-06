@@ -6,10 +6,11 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var expressHbs = require('express-handlebars');
+// var expressHbs = require('express-handlebars');
 var expressValidator = require('express-validator');
 var index = require('./routes/index');
 var users = require('./routes/users');
+var expressLayouts = require('express-ejs-layouts');
 
 /*------------Authentication Packages----------------*/
 var session = require('express-session');
@@ -33,14 +34,15 @@ var sessionStore = new MySQLStore(options);
 //Now we will pass this variable in the session below the page in app.use(session...)
 
 /*--------------------------------------------------*/
-
-
-var app = express();
 // view engine setup
 // app.set('view engine', 'hbs')
 // ;
-app.use(express.static(__dirname + '/public'));
+
+app.use(expressLayouts);
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -55,6 +57,10 @@ app.use(expressValidator());
 
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+
+
 
 
 /*------------------------Sessions/Passport--------------------*/
@@ -80,10 +86,6 @@ app.use(session({
 // app.set('layout', 'layouts/layout');
 router.use('/', require('./routes/index'));
 
-/*app.get('/student', function (req, res) {
-    res.render('student/studentProfile', {for_frontend_username: "Tayyab"});
-
-});*/
 
 
 
@@ -115,7 +117,7 @@ passport.use(new LocalStrategy(
     function (username, password, done) {
         //we are getting username and password from the form
         const db = require('./model/database-connection');
-        db.query('SELECT usertype,password,id FROM user WHERE username = ?', [username], function (err, result, fields) {
+        db.query('SELECT usertype,password,id FROM users WHERE username = ?', [username], function (err, result, fields) {
 
             //iF THE PASSWORD DOES MATCH found or USER DOES NOT EXIST THEN WE ASSIGN RESULT.LENGTH===0
             //Here the result index 0 has password which is not proper form so we access the
@@ -172,19 +174,6 @@ app.use(function (err, req, res, next) {
     res.render('error');
 });
 
-
-/*=======================Sockets Part=============================*/
-var sockIO = require('socket.io')();
-app.sockIO = sockIO;
-sockIO.on('connection', function (socket) {
-    console.log('A user connected!');
-
-    socket.on('chat message', function (msg) {
-        sockIO.emit('chat message', msg);
-        console.log(msg);
-    });
-});
-/*=======================Sockets End=============================*/
 
 
 module.exports = app;
