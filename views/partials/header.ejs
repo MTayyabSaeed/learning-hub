@@ -27,15 +27,18 @@
                 <ul class="nav navbar-nav navbar-left">
                     <li class="active"><a href="/">Home</a></li>
                     <li><a href="#">All Courses</a></li>
-                    <li><a href="#">About</a></li>
+                    <li><a href="/about">About</a></li>
                     <!--Reference the faq page here. I would keep this path: "/faqs has been set to faqs/faqs.hbs" in the router/index.js-->
                     <li><a href="/faqs">FAQ</a></li>
+                    <% if(locals.isAuthenticated){ %>
                     <li><a href="/forum">Forum</a></li>
+                    <% } %>
                 </ul>
                 <!--Sign in and sign up menus-->
                 <ul class="nav navbar-nav navbar-right">
 
                     <% if(locals.isAuthenticated){ %>
+                    <li><a href="/student">Profile</a></li>
                     <li><a href="/logout">Log out</a> </li>
                     <% }  else { %>
                     <li><a href="/login">Sign In</a></li>

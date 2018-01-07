@@ -11,6 +11,19 @@
             <div class="panel-body" >
                 <form class="form-horizontal" role="form" method="post" action="/register" onSubmit="return checkblank(this);">
 
+                    <% if(signupErrors) { %>
+                    <div class="alert alert-danger">
+                        <% signupErrors.forEach(function (msg) { %>
+                        <% console.log(msg) %>
+                        <li><%- JSON.stringify(msg) %></li>
+                        <% }) %>
+                    </div>
+                    <% } else if (userTakenError) { %>
+                    <div class="alert alert-danger">
+                        <%= userTakenError %>
+                    </div>
+                    <% } %>
+
 
                     <div class="form-group">
                         <label for="first_name" class="col-md-3 control-label">Username*</label>

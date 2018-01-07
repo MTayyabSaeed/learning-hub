@@ -11,6 +11,14 @@
             <div class="panel-body" >
                 <form class="form-horizontal" role="form" method="post" action="login">
 
+                    <% if (errors) { %>
+                    <div class="alert alert-danger">
+                        <%= errors %>
+                    </div>
+                    <% } %>
+
+
+
                     <div class="form-group">
                         <label for="first_name" class="col-md-3 control-label">Username*</label>
                         <div class="col-md-9"><input id="userIdSignIn" type="text" name="username" type="text" class="form-control" placeholder="Username" class="input-medium" required>
