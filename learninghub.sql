@@ -106,11 +106,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `usertype`) VALUES
-(82, 'username', 'mohsinyounas0005@gmail.com', '$2a$10$LFyAYCuT2vlCDZnkbx1iOu2ndTaKX.ol9HYv7nnYNXDC6JM5/EHuK', 'Instructor'),
-(80, 'mohsin05', 'mohsinyounas05@gmail.com', '$2a$10$y26hkHzUdrd.PVzfJOoOIeWdYcY.rFmb7yX0VTf7eFWvnYISkasc6', 'Instructor'),
-(81, 'mohsin050', 'mohsinyounas05@gmail.com', '$2a$10$Bk4gNXWKGNCViXzD3xePK.JQVdNBNv2yrI8YeUAzIhumcrPQS2T96', 'Student'),
 (83, 'wjb123', 'wjbhatti@hotmail.com', '$2a$10$nx2wBgRkzHQSy65iCyD5DukZ5VZ5RrW8AEJ7dLMEfQ65v8ty2/beG', 'Student'),
-(84, 'wjb1234', 'virgo30august@gmail.com', '$2a$10$yjdX0lwPyhGFHzzTAFT.JOQ3TX7GhOfD.cBmG2QGNHp0FcqUGUwQS', 'Student');
+(84, 'wjb1234', 'coolmint@gmail.com', '$2a$10$yjdX0lwPyhGFHzzTAFT.JOQ3TX7GhOfD.cBmG2QGNHp0FcqUGUwQS', 'Student');
 
 -- --------------------------------------------------------
 
