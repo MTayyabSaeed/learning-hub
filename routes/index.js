@@ -9,10 +9,14 @@ const db = require('../model/database-connection');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-
     res.render('homepage/index', {title: 'Learning Hub'});
 });
-router.get('/forum', authenticationMiddleware(), function (req, res, next) {
+// router.get('/forum', function (req, res, next) {
+//     res.render('sockets/sockets', {title: 'Learning Hub'});
+//
+// });
+
+router.get('/forum', authenticationMiddleware(),  function (req, res, next) {
 
     db.query('SELECT * FROM questions', function (err, result, fields) {
         if (err)throw error;
@@ -173,7 +177,7 @@ router.post('/forum/comment/upvote', function (req, res, next) {
         console.log("Votes Selected");
 
         if (result.length == 0) {
-        // Insert verirication that user has voted on a specific comment
+            // Insert verirication that user has voted on a specific comment
             db.query('INSERT INTO votes (user_id,comment_id) VALUES (?,?)', [username,commentID], function (err, result, fields) {
                 if (err)throw error;
 
@@ -212,14 +216,18 @@ router.post('/forum/comment/upvote', function (req, res, next) {
 
 })
 
+router.get('/about', function (req, res, next) {
+    res.render('aboutLearningHub/about', {title: 'Learning Hub'});
+
+});
+
 /* GET student profile page. */
 router.get('/student', authenticationMiddleware(), function (req, res, next) {
-    var username = req.session.username;
+    var username = req.session.username ;
     var usertype = req.session.passport.user.usertype;
-    if (usertype == 'Student') {
+    if (usertype  === 'Student'){
         res.render('student/studentProfile', {for_frontend_username: username});
-    }
-    if (usertype == 'Instructor') {
+    }if(usertype  === 'Instructor'){
         res.redirect('instructor');
     }
 });
@@ -232,11 +240,15 @@ router.get('/faqs', function (req, res, next) {
 /* GET sign up page....... this has been changed but kept for copying the code*/
 router.get('/login', function (req, res, next) {
 
-    if (req.isAuthenticated()) {
-        res.redirect('student')
-    } else {
-        res.render('user/login', {errors: req.flash('loginMessage')})
-    }
+    if(req.isAuthenticated()){res.redirect('student')}else{
+
+        var errors = req.flash('loginMessage');
+
+        if(errors.length == 0) {
+            var errors = '';
+        }
+
+        res.render('user/login', {errors: errors})}
 // }
     // else{
     // res.redirect('student');
@@ -245,21 +257,29 @@ router.get('/login', function (req, res, next) {
 
 /* GET sign up page....... this has been changed but kept for copying the code*/
 router.get('/signup', function (req, res, next) {
-    if (req.isAuthenticated()) {
-        res.redirect('student')
-    } else {
-        res.render('user/signup', {signupErrors: req.flash('signupMessage'), userTakenError: req.flash('signupUser')});
+    if(req.isAuthenticated()){res.redirect('student')}else{
+        if(req.isAuthenticated()){res.redirect('instructor')}
+
+        var errors = req.flash('signupMessage');
+        if(errors.length == 0) {
+            var errors = '';
+        };
+
+        var signupUser = req.flash('signupUser');
+        if(signupUser.length == 0) {
+            var signupUser = '';
+        };
+        res.render('user/signup', {signupErrors: errors, userTakenError: signupUser});
     }
 });
 
 /*------AuthenticationMiddleware() is used to restrict the page until the user is LogedIn---------*/
 router.get('/instructor', authenticationMiddleware(), function (req, res, next) {
-    var username = req.session.username;
+    var username = req.session.username ;
     var usertype = req.session.passport.user.usertype;
-    if (usertype == 'Student') {
+    if (usertype  === 'Student'){
         res.redirect('student');
-    }
-    if (usertype == 'Instructor') {
+    }if(usertype  === 'Instructor'){
         res.render('instructor/instructorProfile', {for_frontend_username: username});
     }
 });
@@ -274,10 +294,10 @@ router.post('/login', passport.authenticate('local-signin', {
     }), (req, res) => {
         var usertype = res.locals.usertype;
 
-        if (usertype == 'Student') {
+        if (usertype === 'Student') {
             res.redirect('student');
         }
-        if (usertype == 'Instructor') {
+        if (usertype === 'Instructor') {
             res.redirect('instructor');
         }
     }
@@ -290,19 +310,16 @@ router.post('/register', passport.authenticate('local-signup', {
         //accessing the variables through sessions, so we can either access through the session or through the
         // locals as done in the /login
         var usertype = req.session.passport.user.usertype;
-        if (usertype == 'Student') {
+        if (usertype === 'Student') {
             res.redirect('student');
         }
-        if (usertype == 'Instructor') {
+        if (usertype === 'Instructor') {
             res.redirect('instructor');
         }
     }
 );
 
-/*------AuthenticationMiddleware() is used to restrict the page until the user is LogedIn---------*/
-router.get('/after-login-page', authenticationMiddleware(), function (req, res, next) {
-    res.render('after-login-page/after-login-page', {title: 'Learning Hub'});
-});
+
 /*-------------------------------------------------------------------------------------------------*/
 router.get('/logout', function (req, res, next) {
 

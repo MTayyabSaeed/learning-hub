@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+    res.send('respond with a resource');
 });
 
 /* GET sign up page....... this has been changed but kept for copying the code*/
@@ -15,6 +15,8 @@ router.get('/login', function(req, res, next) {
 router.get('/signup', function(req, res, next) {
     res.render('user/signup', { title: 'Learning Hub' });
 });
+
+
 
 /*Singup Post Request*/
 router.post('/register', function(req, res, next) {
@@ -59,17 +61,5 @@ router.post('/register', function(req, res, next) {
         });*/
     }
 });
-
-
-// Get Question List
-
-
-//Get Specific Question
-
-
-//Add Comment
-
-//Add Vote
-
 
 module.exports = router;

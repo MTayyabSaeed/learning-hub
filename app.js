@@ -5,7 +5,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var expressHbs = require('express-handlebars');
+var expressLayouts = require('express-ejs-layouts');
+
 var expressValidator = require('express-validator');
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -36,11 +37,12 @@ var sessionStore = new MySQLStore(options);
 
 var app = express();
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(expressLayouts);
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -54,21 +56,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-/*------------------------Sessions/Passport--------------------*/
-
-/*const key = randomString.generate({
-    length: 12,
-    charset: 'alphabetic'
-
-});
-console.log(key);*/
-
 app.use(session({
     secret: 'ViAxwhpbhmYm',
     resave: false, //On each refresh the session will update or not
     store: sessionStore,
     saveUninitialized: false //whether or not crete session on each start of website or when only user is loign
-    //cookie: {secure: true}
 
 }));
 
@@ -77,7 +69,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 /*----------------------------------------------------*/
 
-/*--Creating the Global Variable that we can use at the hbs for disapearing login button when logedin----*/
 /*This is the general middle ware*/
 app.use(function (req, res, next) {
     res.locals.isAuthenticated = req.isAuthenticated();
@@ -109,14 +100,11 @@ passport.use('local-signup', new LocalStrategy({
         req.checkBody('password', 'Password must be between 8-100 characters long.').len(8, 100);
         req.checkBody("password", "Password must include one lowercase character").matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.* )(?=.*[^a-zA-Z0-9]).{8,}$/, "i");
         req.checkBody("password", "One uppercase character, a number, a special character.").matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.* )(?=.*[^a-zA-Z0-9]).{8,}$/, "i");
-        // req.checkBody('passwordMatch', 'Password must be between 8-100 characters long.').len(8, 100);
-        // req.checkBody('passwordMatch', 'Passwords do not match, please try again.').equals(req.body.password);
-// Additional validation to ensure username is alphanumeric with underscores and dashes
         req.checkBody('username', 'Username can only contain letters, numbers, or underscores.').matches(/^[A-Za-z0-9_-]+$/, 'i');
         var errors = req.validationErrors();
         if (errors) {
             return done(null, false, req.flash('signupMessage', errors));
-        };
+        }
         const saltRounds = 10;
         const usertype = req.body.usertype;
         const email = req.body.email;
@@ -126,13 +114,13 @@ passport.use('local-signup', new LocalStrategy({
         bcrypt.genSalt(saltRounds, function (err, salt) {
             bcrypt.hash(myPlaintextPassword, salt, function (err, hash) {
                 const bcyptPassword = hash;
-                db.query('SELECT username FROM user WHERE username = ?', [username], function (err, result) {
+                db.query('SELECT username FROM users WHERE username = ?', [username], function (err, result) {
                     if (err) {
                         throw err;}
                     if (result.length) {
                         return done(null, false, req.flash('signupUser', 'That username is already taken.'));
                     } else {
-                        db.query('INSERT INTO user (username, email, password,usertype) VALUES (?,?,?,?)', [username, email, bcyptPassword, usertype], function (err, result, fields) {
+                        db.query('INSERT INTO users (username, email, password,usertype) VALUES (?,?,?,?)', [username, email, bcyptPassword, usertype], function (err, result, fields) {
                             if (err) throw err;
                             req.session.username = username;
                             app.locals.username = username;
@@ -140,24 +128,17 @@ passport.use('local-signup', new LocalStrategy({
                             db.query('SELECT LAST_INSERT_ID() as id', function (err, results, fields) {
                                 if (err) {
                                     throw err;}
-                                /*---Lets assign the user_id-------*/
                                 var user_id = results[0].id;
-                                /*---Login is Passport function,it will take the user id and
-                                store that directly into the session---*/
-                                /*---The login function works with the serlyzing and deserilizing fucntion which
-                                * is written below*/
-                                /*----The login function is passing the user_id to the serlyzing function which writes
-                                the session */
                                 req.login(user_id, username, function (err) {
 
                                     if (err) {
                                         throw err;
                                     }
-                                    if (usertype == 'Student') {
+                                    if (usertype === 'Student') {
 
                                         return done(null, {usertype: 'Student'});
                                     }
-                                    if (usertype == 'Instructor') {
+                                    if (usertype === 'Instructor') {
 
                                         //to access the usertype we will use the passport session as]
                                         //req.session.passport.user.usertype
@@ -166,19 +147,11 @@ passport.use('local-signup', new LocalStrategy({
                                     }
                                 })
                             })
-
                         })
-
-
                     }
-
-
                 });
-
             })
         })
-
-
     }));
 
 
@@ -191,7 +164,7 @@ passport.use('local-signin', new LocalStrategy({
     function (req, username, password, done) {
         //we are getting username and password from the form
         const db = require('./model/database-connection');
-        db.query('SELECT usertype,password,id FROM user WHERE username = ?', [username], function (err, result, fields) {
+        db.query('SELECT usertype,password,id FROM users WHERE username = ?', [username], function (err, result, fields) {
             if (err) {
 
                 throw  err
@@ -201,9 +174,6 @@ passport.use('local-signin', new LocalStrategy({
                 return done(null, false, req.flash('loginMessage', 'No user found.'));
             }
 
-            //iF THE PASSWORD DOES MATCH found or USER DOES NOT EXIST THEN WE ASSIGN RESULT.LENGTH===0
-            //Here the result index 0 has password which is not proper form so we access the
-            //value of the key password in the array of result the convert that into the String
             const hash = result[0].password.toString();
             const userID = result[0].id.toString();
             const usertype = result[0].usertype.toString();
@@ -213,19 +183,13 @@ passport.use('local-signin', new LocalStrategy({
             app.locals.usertype = usertype;
             app.locals.username = username;
 
-            //variable decaled with app.locals have scope only to this file. when locals declared with res.locals.
-            // have scope to the whole project.
-            //Here the bcrypt.compare , compare the password with the hash password, hash password is the password
-            //we are getting from the data base, the 'password' field below is the password which user enters.
-            //we dont need the salt this time becs the bcrypt.compare does that automatically for us.
-
             bcrypt.compare(password, hash, function (err, response) {
-                console.log("My position is at 1");
+
                 if (response === true) {
-                    console.log("My position is at 3");
+
                     return done(null, {usertype: usertype});
                 } else {
-                    console.log("My position is at 4");
+
                     return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
                 }
             })
@@ -233,9 +197,6 @@ passport.use('local-signin', new LocalStrategy({
     }));
 /*-------------------------------------------------------------------------------------*/
 // view engine setup
-
-app.engine('.hbs', expressHbs({defaultLayout: 'layout', extname: '.hbs'}));
-app.set('view engine', '.hbs');
 
 require('./model/database-connection');
 
@@ -257,10 +218,10 @@ app.use(function (err, req, res, next) {
     res.render('error');
 });
 
-
 /*=======================Sockets Part=============================*/
 var sockIO = require('socket.io')();
 app.sockIO = sockIO;
+
 sockIO.on('connection', function (socket) {
     console.log('A user connected!');
 
