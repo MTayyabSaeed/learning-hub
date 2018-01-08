@@ -1,7 +1,7 @@
 
 <div>
     <!--This is the navigation bar code here and its generic means it would appear on everypage. My location is views/partials/header-->
-    <nav class="navbar navbar-inverse bg-inverse">
+    <nav class="navbar navbar-inverse bg-inverse navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
                 <a href="/" class="active navbar-brand">{{title}}</a>
@@ -23,6 +23,9 @@
                     <li><a href="#">About</a></li>
                     <!--Reference the faq page here. I would keep this path: "/faqs has been set to faqs/faqs.hbs" in the router/index.js-->
                     <li><a href="/faqs">FAQ</a></li>
+                    {{#if isAuthenticated}}
+                    <li><a href="/student">Profile</a></li>
+                    {{/if}}
                     <li><a href="/forum">Forum</a></li>
 
                     <!--Search bar with search button-->
@@ -35,29 +38,16 @@
                         </form>
                     </li>
                 </ul>
-
-
-
                 <!--Sign in and sign up menus-->
                 <ul class="nav navbar-nav navbar-right">
 
-
                 {{#if isAuthenticated}}
-
                     <li><a href="/logout">Log out</a> </li>
                 {{else}}
-                    <li><a href="#myModal" data-toggle="modal">Sign In</a></li>
-                    <li><a href="#">Sign Up</a> </li>
+                    <li><a href="/login" data-toggle="modal">Sign In</a></li>
+                    <li><a href="/signup">Sign Up</a> </li>
                 {{/if}}
-
-
-
                 </ul>
-
-
-
-
-
 
             </div>
         </div>

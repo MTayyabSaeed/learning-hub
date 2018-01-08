@@ -6,9 +6,6 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
-
-
-
 /* GET sign up page....... this has been changed but kept for copying the code*/
 router.get('/login', function(req, res, next) {
     res.render('user/login', { title: 'Learning Hub'});
@@ -19,10 +16,9 @@ router.get('/signup', function(req, res, next) {
     res.render('user/signup', { title: 'Learning Hub' });
 });
 
-
 /*Singup Post Request*/
-
 router.post('/register', function(req, res, next) {
+
     req.checkBody('username', 'Username field cannot be empty.').notEmpty();
     req.checkBody('username', 'Username must be between 4-15 characters long.').len(4, 15);
     req.checkBody('email', 'The email you entered is invalid, please try again.').isEmail();
@@ -35,11 +31,10 @@ router.post('/register', function(req, res, next) {
 // Additional validation to ensure username is alphanumeric with underscores and dashes
     req.checkBody('username', 'Username can only contain letters, numbers, or underscores.').matches(/^[A-Za-z0-9_-]+$/, 'i');
     var errors = req.validationErrors();
-
     if(errors){
         res.render('homepage/index',{errors:errors});
         return}else{
-
+        const usertype = req.body.usertype;
         const saltRounds = 10;
         const email = req.body.email;
         const password= req.body.password;
@@ -47,25 +42,34 @@ router.post('/register', function(req, res, next) {
         const myPlaintextPassword = password;
         const db = require('../model/database-connection');
 
-
         bcrypt.genSalt(saltRounds, function (err,salt) {
             bcrypt.hash(myPlaintextPassword,salt,function (err,hash) {
                 const bcyptPassword = hash;
-                db.query('INSERT INTO user (username, email, password) VALUES (?,?,?)', [username, email, bcyptPassword],function (err, result, fields) {
+                db.query('INSERT INTO user (username, email, password,usertype) VALUES (?,?,?,?)', [username, email, bcyptPassword,usertype],function (err, result, fields) {
                     if(err)throw error;
+
                     res.render('after-login-page/after-login-page', { title: 'Registration Complete' , user: username});
                 })
             })
         })
-
         /*var sql = 'INSERT INTO user (username,email,password) VALUES (req.body.username,req.body.email,req.body.password)';
         db.query(sql, function (err, result) {
             if (err) throw err;
             console.log("1 record inserted");
         });*/
-
-
     }
-
 });
+
+
+// Get Question List
+
+
+//Get Specific Question
+
+
+//Add Comment
+
+//Add Vote
+
+
 module.exports = router;

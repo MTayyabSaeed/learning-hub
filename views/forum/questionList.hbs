@@ -1,0 +1,72 @@
+<h1 style="margin-top: 35px"><b>Forum Questions</b></h1>
+<br>
+<br>
+
+<div class="row">
+
+    <div class="" id="messages" style="width: 60%;height: auto"></div>
+
+    <div class="" id="questionList">
+
+        <!----------------Section for all question ListSection for a specific question------------>
+        {{#each questionList}}
+
+
+                <div class="well"  style="width: 60%;height: auto">
+
+                <a href="/forum/question?id={{id}}"><h3>{{question}}</h3></a>
+
+                    Submitted By: {{user_id}}
+
+            </div>
+
+
+
+        {{/each}}
+
+
+    </div>
+
+
+    <div class="well" style="position:fixed;right:100px;top:35%; ">
+
+        <form  method = "post" action="/forum/addQuestion" >
+
+            <div class="form-group">
+                <label for="comments">Your Question</label>
+                <textarea class="form-control" name="question" id="question" rows="5" required></textarea>
+            </div>
+            <button type="submit" name="create_question" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+
+<!--<script src="/socket.io/socket.io.js"></script>-->
+<!--<script src="https://code.jquery.com/jquery-1.11.1.js"></script>-->
+<!--<script src=""></script>-->
+
+<!--<script>-->
+
+    <!--function addVote() {-->
+        <!--alert("fddfs");-->
+
+    <!--}-->
+
+
+    <!--$(function () {-->
+
+
+
+        <!--var socket = io();-->
+        <!--$('form').submit(function(){-->
+            <!--socket.emit('chat message', $('#m').val());-->
+            <!--$('#m').val('');-->
+            <!--return false;-->
+        <!--});-->
+        <!--socket.on('chat message', function(msg){-->
+            <!--$('#messages').append($('<div class="well"></div>').text(msg));-->
+        <!--});-->
+    <!--});-->
+
+
+<!--</script>-->
