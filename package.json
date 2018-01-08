@@ -29,6 +29,7 @@
     "passport-local": "^1.0.0",
     "popper": "^1.0.0",
     "randomstring": "^1.1.5",
-    "serve-favicon": "~2.4.2"
+    "serve-favicon": "~2.4.2",
+    "socket.io": "^2.0.4"
   }
 }

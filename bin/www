@@ -23,6 +23,8 @@ app.set('port', port);
 /*=======================Sockets part=============================*/
 
 var server = http.createServer(app);
+var sockIO = app.sockIO;
+sockIO.listen(server);
 
 /*=======================Sockets end=============================*/
 

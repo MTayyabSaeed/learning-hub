@@ -1,0 +1,56 @@
+<div class="minor_container">
+
+
+    <h1 style="margin-top: 35px"><b>Forum Questions</b></h1>
+    <br>
+    <br>
+
+    <div class="row">
+
+        <div class="" id="questionList">
+
+
+            <!----------------Section for all question ListSection for a specific question------------>
+
+            <% questionList.forEach(function(row) { %>
+            <div class="well" style="width: 60%;height: auto">
+
+                <a href="/forum/question?id=<%= row.id %>"><h3><%= row.question %></h3></a>
+
+                <b>Submitted By:</b> <%= row.user_id %>
+
+            </div>
+            <% }); %>
+
+            <!----------------Handlebar Equivalent OLD------------>
+            <!--{{#each questionList}}-->
+
+
+            <!--<div class="well"  style="width: 60%;height: auto">-->
+
+            <!--<a href="/forum/question?id={{id}}"><h3>{{question}}</h3></a>-->
+
+            <!--Submitted By: {{user_id}}-->
+
+            <!--</div>-->
+
+
+            <!--{{/each}}-->
+
+
+        </div>
+
+
+        <div class="well" style="position:fixed;right:100px;top:35%; ">
+
+            <form method="post" action="/forum/addQuestion">
+
+                <div class="form-group">
+                    <label for="comments">Your Question</label>
+                    <textarea class="form-control" name="question" id="question" rows="5" required></textarea>
+                </div>
+                <button type="submit" name="create_question" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>

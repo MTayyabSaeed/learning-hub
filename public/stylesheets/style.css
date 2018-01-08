@@ -6,6 +6,13 @@ body {
 	line-height: 30px;
 }
 
+.minor_container {
+	padding-right: 30px;
+	padding-left: 30px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
 /*
 
 
