@@ -114,7 +114,7 @@ passport.use('local-signup', new LocalStrategy({
         bcrypt.genSalt(saltRounds, function (err, salt) {
             bcrypt.hash(myPlaintextPassword, salt, function (err, hash) {
                 const bcyptPassword = hash;
-                db.query('SELECT username FROM users WHERE username = ?', [username], function (err, result,) {
+                db.query('SELECT username FROM users WHERE username = ?', [username], function (err, result) {
                     if (err) {
                         throw err;}
                     if (result.length) {
@@ -184,12 +184,12 @@ passport.use('local-signin', new LocalStrategy({
             app.locals.username = username;
 
             bcrypt.compare(password, hash, function (err, response) {
-                console.log("My position is at 1");
+
                 if (response === true) {
-                    console.log("My position is at 3");
+
                     return done(null, {usertype: usertype});
                 } else {
-                    console.log("My position is at 4");
+
                     return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
                 }
             })

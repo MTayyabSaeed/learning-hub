@@ -39,7 +39,14 @@ router.get('/faqs', function (req, res, next) {
 router.get('/login', function (req, res, next) {
 
     if(req.isAuthenticated()){res.redirect('student')}else{
-        res.render('user/login', {errors: req.flash('loginMessage')})}
+
+        var errors = req.flash('loginMessage');
+
+        if(errors.length == 0) {
+            var errors = '';
+        }
+
+        res.render('user/login', {errors: errors})}
 // }
     // else{
     // res.redirect('student');
@@ -49,8 +56,18 @@ router.get('/login', function (req, res, next) {
 /* GET sign up page....... this has been changed but kept for copying the code*/
 router.get('/signup', function (req, res, next) {
     if(req.isAuthenticated()){res.redirect('student')}else{
-        if(req.isAuthenticated()){res.redirect('instructor')} else {}
-        res.render('user/signup', {signupErrors: req.flash('signupMessage'), userTakenError: req.flash('signupUser')});
+        if(req.isAuthenticated()){res.redirect('instructor')}
+
+        var errors = req.flash('signupMessage');
+        if(errors.length == 0) {
+            var errors = '';
+        };
+
+        var signupUser = req.flash('signupUser');
+        if(signupUser.length == 0) {
+            var signupUser = '';
+        };
+        res.render('user/signup', {signupErrors: errors, userTakenError: signupUser});
     }
 });
 
