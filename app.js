@@ -25,7 +25,7 @@ var options = {
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'Learning hub'
+    database: 'learninghub'
 };
 
 var sessionStore = new MySQLStore(options);
