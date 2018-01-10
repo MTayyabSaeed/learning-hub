@@ -1,0 +1,168 @@
+<html lang="en">
+
+<% include ./partials/headerMain.ejs%>
+     <%- include left_sidebar_student %>
+   <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron col-sm-9" id="mainform">
+            <div id="signupbox" style="" class="">
+                                                           
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <div class="panel-title">Courses By Chapter</div>
+ <div style="float:right; font-size: 100%; position: relative; top:-20px">Quiz Test</div>
+                        </div> 
+                        <div class="panel-body">
+						<% if (chapter_message.length > 0){ %>
+						<div class="alert alert-success col-sm-12"><%= chapter_message %></div>
+						<% } %>
+							<div id="show_ss"style="border-bottom:1px solid #999;display:block" class="panel-body">
+							<form name="basicform" id="basicform" method="post" action="">
+							<div id="s4" class="frm" style="display: block;">
+							<fieldset>
+							<div class="clearfix" style="height: 10px;clear: both;"></div>
+							<div class="form-group">
+							<div class="col-lg-10 col-lg-offset-2">
+							<button class="btn btn-primary open" type="button">Start Quiz </button> 
+							<img src="spinner.gif" alt="" id="loader" style="display: none">
+							</div>
+							</div>
+							</fieldset>
+							</div>
+							</form>
+								<fieldset class="rating">
+								<% 
+								var j =1;
+								var rowcount = rows1.length;
+								rows1.forEach(function(row){ %>
+								<%		
+								if(j == "1"){
+								var first = "opp";
+								var style = "display:none"; 
+								}else{
+								var first = "";
+								var style = "display:none"; 
+								}
+
+								%>
+								
+								
+								<div id="sf-<%=j;%>" data_id="<%=row.question_id;%>" row="<%=rows1.length;%>" class="frm <%=first;%>" style="<%=style;%>">
+								<div><span id="conrow-1">Question <%=j;%> </span><span id="row-<%=rows1.length;%>"> of <%=rows1.length;%></span></div>
+								<p><%=j;%>. <%=row.question%></p>       
+								<div id="s-1" data_id="<%=row.question_id;%>" row="<%=rows1.length;%>">
+								<% if(row.option1.length > 0){ %> <div><input class="stars" id="star1" name="correct_ans" value="option1" type="radio"> <%=row.option1%></div><% } %>
+								<% if(row.option2.length > 0){ %><div><input class="stars" id="star2" name="correct_ans" value="option2" type="radio"> <%=row.option2%></div><% } %>
+								<% if(row.option3.length > 0){ %><div><input class="stars" id="star3" name="correct_ans" value="option3" type="radio"> <%=row.option3%></div><% } %>
+								<% if(row.option4.length > 0){ %><div><input class="stars" id="star4" name="correct_ans" value="option4" type="radio"> <%=row.option4%></div><% } %>
+								<div class="form-group">
+								<div class="col-lg-10 col-lg-offset-2">
+								<button id="next-<%=j;%>" data_id="<%=row.question_id;%>" row="<%=rows1.length;%>" class="btn btn-primary open-<%=j;%>" type="button"><% if (rowcount ==j){ %> Finish <% }else{ %>Next <% } %><span class="fa fa-arrow-right"></span></button> 
+								</div>
+								</div>
+								</div>
+
+								<div class="clearfix" style="height: 10px;clear: both;"></div>
+
+								</div>
+								<% j++; });%>
+								
+								<div id="view_result" style="display:none">
+								<p>Total score: </p>
+								</div>
+								</fieldset>
+							
+							</div>	
+							
+<div class="faq_section">
+<h3 class="custom_title"><%= results[0].course_title %></h3>
+<p><%= results[0].course_des %></p>
+<% if (message.length > 0){ %> 
+<div class=""><%= message %></div> 
+<% } %> 
+<% 
+var i =1;
+data.forEach(function(ind){ %>	
+<div class="faq_outer"><div class="faq_question"><h4><%=ind.chapter_title%></h4></div>
+<div class="faq_answer"><div class="sub_title"><%=ind.chapter_sub%></div> <div><a href="<%=ind.chapter_link%>" target="_blank">Course video link</a></div> <div><%=ind.chapter_des%></div></div></div>
+
+<% i++ }) %>	
+
+</div>	
+
+
+	<script type="text/javascript">
+		jQuery('.faq_outer .faq_question').click(function(){
+		jQuery(this).parents('.faq_outer').toggleClass('faq_open');
+		jQuery('.faq_outer').not(jQuery(this).parents('.faq_outer')).removeClass('faq_open');
+		});
+		<!-- jQuery('.show_hide').click(function(){ -->
+		<!-- jQuery('#show_ss').slideToggle('bottom'); -->
+		<!-- return false; -->
+		<!-- }); -->
+	  jQuery().ready(function() {	
+		jQuery(".open").click(function() {
+		jQuery(".frm").hide("fast");
+		jQuery(".opp").show("slow");
+		});
+		});
+	
+				$(document).ready(function () {
+				$("button[id^='next-']").on('click', function() {
+
+				var sf_id =$(this).attr("id");
+				
+				var id = sf_id.replace("next-","");
+				var check = sf_id.replace("next-","");
+				var row = $(this).attr("row");
+				var aaa = ++id;
+				var q1 =$(this).attr("data_id");
+				
+				if($('input[name=correct_ans]').is(':checked')){
+					
+				var radio_value = $('input[name=correct_ans]:checked','#sf-'+check).val();
+				}
+
+			 var url ='http://localhost:8080/postans'; 
+			 var url2 ='http://localhost:8080/viewResult'; 
+			 
+			 console.log(url);
+			 $.post(url,{correct_ans:radio_value,question_id:q1},function(d){ 
+			 //    alert("ddddd"+d); 
+			 if(d>0) 
+			 { 
+			 alert('You already rated'); 
+			 }else{ 
+			 alert('Thanks For Rating'); 
+			 } 
+			 $("#sf-"+check).hide("fast"); 
+			 if(check == row){ 
+			 $.get( url2, function( data ) { 
+        		 $('#view_result').css('display','block');     
+			 //$( "#view_result" ).html( data );  
+			 });	
+      
+		
+			 }else{ 
+				
+			 $("#sf-"+aaa).show("slow"); 
+			 } 
+			
+			 }); 
+			  $("#sf-"+check).hide("fast"); 
+			$("#sf-"+aaa).show("slow");
+
+			});
+			});
+
+
+
+
+	
+	</script>
+
+                         </div>
+                    </div>
+              
+                
+         </div>
+      </div>

@@ -1,0 +1,53 @@
+<html lang="en">
+
+<% include ./partials/headerMain.ejs%>
+   <!-- Main component for a primary marketing message or call to action -->
+   
+     <%- include left_sidebar %>
+      <div class="jumbotron col-sm-9" id="mainform">
+            <div id="signupbox" style="" class="">
+                                                           
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <div class="panel-title">My Courses</div>
+                            <div style="float:right; font-size: 85%; position: relative; top:-10px"><a id="signinlink" href="/create">Create a course</a></div>
+                        </div> 
+                        <div class="panel-body" >
+						<% if (message.length > 0) { %>
+						<div class="alert alert-success col-sm-12"><%= message %></div>
+						<% } %>
+						
+						
+						<ul>
+						<% 
+						var i =1;
+						data.forEach(function(ind){ %>
+						<li class="grid">
+							<h2><%=ind.course_title%></h2>
+						<div class="nt-column-list">
+						<h2>
+						<span class="">
+						<a class="" href="/viewCourse/<%=ind.course_id%>">View</a>
+						<a class="" href="/edit_course/<%=ind.course_id%>">Edit</a>
+						<form style="display:inline-block" action="" method="post">
+							<input name="course_id" value="<%=ind.course_id%>" type="hidden">
+							<button class="" type="submit" value="Delete" name="delete">Delete</button>
+						</form>
+						</span>
+						</h2>
+						<ul>
+						<li>
+						<%=ind.course_des%>
+						</li>
+						</ul>
+						</div>
+						</li>
+							<% i++ }) %>
+						</ul>
+
+                         </div>
+                    </div>
+              
+                
+         </div>
+      </div>
