@@ -51,7 +51,8 @@
                 <ul class="nav navbar-nav navbar-right">
 
                     <% if(locals.isAuthenticated){ %>
-                    <li><a href="/student">My Profile</a></li>
+                    <% console.log(locals.username) %>
+                    <li><a href="/student"><%= locals.username %></a></li>
                     <li><a href="/logout">Log out</a> </li>
                     <% }  else { %>
                     <li><a href="/login">Sign In</a></li>

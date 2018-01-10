@@ -393,6 +393,11 @@ router.post('/deleteChapters/:id',  function (req, res, next) {
     inst.deleteChapters(req,res,next);
 });
 
+
+router.get('/viewDetails/:id',  function (req, res, next) {
+    inst.viewDetails(req,res,next);
+});
+
 /*-----------------------SignIn Post Request-------------------------------------*/
 // We will be using the passport authentication function instead of the call back function
 // here the passport authticate will find the local stratgy in the app.js and will pass the
@@ -428,6 +433,7 @@ router.post('/register', passport.authenticate('local-signup', {
         }
     }
 );
+
 
 
 

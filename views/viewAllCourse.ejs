@@ -1,7 +1,16 @@
 <html lang="en">
 
 <% include ./partials/headerMain.ejs%>
-<%- include left_sidebar %>
+
+
+<% if(locals.usertype === "Student"){ %>
+    <% include ./student/studentProfile.ejs%>
+<% } else {%>
+    <%- include left_sidebar %>
+<% } %>
+
+
+
 <!-- Main component for a primary marketing message or call to action -->
 <div class="jumbotron col-sm-9" id="mainform">
     <div id="signupbox" style="" class="">

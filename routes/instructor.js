@@ -359,7 +359,6 @@ exports.quizzes = function(req, res, next){
 
     db.query(sql, function(err, results){
 
-        console.log("Ankit "+results);
         if(err){
             throw  err;
         }

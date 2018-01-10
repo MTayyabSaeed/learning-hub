@@ -15,7 +15,7 @@
                     <div class="alert alert-danger">
                         <% signupErrors.forEach(function (msg) { %>
                         <% console.log(msg) %>
-                        <li><%- JSON.stringify(msg) %></li>
+                        <li><%- JSON.stringify(msg.msg) %></li>
                         <% }) %>
                     </div>
                     <% } else if (userTakenError) { %>
