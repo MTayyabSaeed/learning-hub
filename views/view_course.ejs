@@ -12,7 +12,7 @@
                                 COURSE CONTENT</div>
 
                             <div style="float:right; font-size: 85%; position: relative; top:-10px">
-                                <a id="signinlink" class="show_hide" href="">ADD QUIZ</a></div>
+                                <a href="/quiz">ADD QUIZ</a></div>
                                     <br>
                             <!--add space between them-->
                             <div style="float:right; font-size: 85%; position: relative; top:-10px">
@@ -79,7 +79,7 @@ data.forEach(function(ind){ %>
         <h4><%=ind.chapter_title%>
             <span style="float:right; font-size: 85%; position: relative; top:-10px;z-index:999;">
                 <a  href="/edit_chapter/<%=ind.chapter_id%>"> Edit </a>
-                <form action="" method="post">
+                <form action="/deleteChapters/<%=ind.chapter_id%>" method="post">
 
                     <button class="btn btn-info" type="submit" value="Delete" name="delete">Delete</button>
                 </form></span></h4></div>
@@ -130,3 +130,4 @@ data.forEach(function(ind){ %>
                 
          </div>
       </div>
+

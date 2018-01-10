@@ -32,6 +32,11 @@ router.get('/catalogue', function (req, res, next) {
 
 /*------------------------------------------------------------Waqaace Part Start----------------------------------------------------------*/
 
+
+
+/*------------------------------------------------------------Waqaace Part Start----------------------------------------------------------*/
+
+
 router.get('/forum', authenticationMiddleware(),  function (req, res, next) {
 
     db.query('SELECT * FROM questions', function (err, result, fields) {
@@ -175,6 +180,7 @@ router.get('/about', function (req, res, next) {
 
 
 
+
 router.get('/viewAllCourse', function (req, res, next) {
 
     message = '';
@@ -203,7 +209,6 @@ router.get('/viewAllCourse', function (req, res, next) {
         res.render('viewAllCourse.ejs', {id:userId,user:user,data:result,course_title:course_title,course_des:course_des,message: message,title: 'Courses'});
     });
 });
-
 
 
 
@@ -269,6 +274,109 @@ router.get('/instructor', authenticationMiddleware(), function (req, res, next) 
 
 router.get('/courses',  function (req, res, next) {
     inst.courses(req,res,next);
+
+    var username = req.session.username ;
+    var usertype = req.session.passport.user.usertype;
+    if (usertype  === 'Student'){
+        res.redirect('student');
+    }if(usertype  === 'Instructor'){
+        res.render('instructor/instructorProfile', {for_frontend_username: username});
+    }
+
+    inst.dashboard(req,res,next);
+});
+
+
+// *************************** Instructor Part
+
+router.get('/courses',  function (req, res, next) {
+    inst.courses(req,res,next);
+});
+
+router.post('/courses',  function (req, res, next) {
+    inst.courses(req,res,next);
+});
+
+router.get('/viewCourse/:id',  function (req, res, next) {
+    inst.viewCourse(req,res,next);
+});
+
+//call for create course
+router.get('/create',  function (req, res, next) {
+    inst.create(req,res,next);
+});
+
+
+//call for create course post
+router.post('/create',  function (req, res, next) {
+    inst.create(req,res,next);
+});
+
+//call for create course
+router.get('/edit_course/:id',  function (req, res, next) {
+    inst.edit_course(req,res,next);
+});
+
+
+//call for create course post
+router.post('/edit_course/:id',  function (req, res, next) {
+    inst.edit_course(req,res,next);
+});
+
+
+
+//call for create course
+router.get('/edit_chapter/:id',  function (req, res, next) {
+    inst.edit_chapter(req,res,next);
+});
+
+//call for create course post
+router.post('/edit_chapter/:id',  function (req, res, next) {
+    inst.edit_chapter(req,res,next);
+});
+
+
+router.post('/viewCourse/:id',  function (req, res, next) {
+    inst.viewCourse(req,res,next);
+});
+
+
+//call for quiz page
+router.get('/quiz',  function (req, res, next) {
+    inst.quiz(req,res,next);
+});
+
+
+//call for quiz page
+router.post('/quiz',  function (req, res, next) {
+    inst.quiz(req,res,next);
+});
+
+//call for quiz page
+router.get('/quizzes',  function (req, res, next) {
+    inst.quizzes(req,res,next);
+});
+
+
+//call for quiz page
+router.post('/quizzes',  function (req, res, next) {
+    inst.quizzes(req,res,next);
+});
+
+//call for create course
+router.get('/createQuiz',  function (req, res, next) {
+    inst.createQuiz(req,res,next);
+});
+
+//call for create course post
+router.post('/createQuiz',  function (req, res, next) {
+    inst.createQuiz(req,res,next);
+});
+
+
+//call for courses page
+router.get('/viewQuiz/:id',  function (req, res, next) {
+    inst.viewQuiz(req,res,next);
 });
 
 router.post('/courses',  function (req, res, next) {
@@ -382,6 +490,40 @@ router.post('/edit_question/:id',  function (req, res, next) {
 
 router.post('/delete_question/:id',  function (req, res, next) {
     inst.delete_question(req,res,next);
+});
+
+
+router.post('/viewQuiz/:id',  function (req, res, next) {
+    inst.viewQuiz(req,res,next);
+});
+
+router.get('/edit_quiz/:id',  function (req, res, next) {
+    inst.edit_quiz(req,res,next);
+});
+
+
+router.post('/edit_quiz/:id',  function (req, res, next) {
+    inst.edit_quiz(req,res,next);
+});
+
+
+router.get('/edit_question/:id',  function (req, res, next) {
+    inst.edit_question(req,res,next);
+});
+
+router.post('/edit_question/:id',  function (req, res, next) {
+    inst.edit_question(req,res,next);
+});
+
+
+router.post('/delete_question/:id',  function (req, res, next) {
+    inst.delete_question(req,res,next);
+});
+
+
+
+router.post('/deleteChapters/:id',  function (req, res, next) {
+    inst.deleteChapters(req,res,next);
 });
 
 /*-----------------------SignIn Post Request-------------------------------------*/
