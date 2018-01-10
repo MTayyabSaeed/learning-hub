@@ -9,13 +9,18 @@ var expressLayouts = require('express-ejs-layouts');
 
 var expressValidator = require('express-validator');
 var index = require('./routes/index');
+
+
 var users = require('./routes/users');
+
 var flash = require('connect-flash');
 /*------------Authentication Packages----------------*/
 var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require('bcrypt');
+
+
 //express-mysql-session is used to store the session in the db just in case we restart the server we
 //the user will not log out.The below code is use to store session in the data base.
 
@@ -114,16 +119,17 @@ passport.use('local-signup', new LocalStrategy({
         bcrypt.genSalt(saltRounds, function (err, salt) {
             bcrypt.hash(myPlaintextPassword, salt, function (err, hash) {
                 const bcyptPassword = hash;
-                db.query('SELECT username FROM users WHERE username = ?', [username], function (err, result) {
+                db.query('SELECT username,id FROM users WHERE username = ?', [username], function (err, result) {
                     if (err) {
                         throw err;}
                     if (result.length) {
                         return done(null, false, req.flash('signupUser', 'That username is already taken.'));
                     } else {
-                        db.query('INSERT INTO users (username, email, password,usertype) VALUES (?,?,?,?)', [username, email, bcyptPassword, usertype], function (err, result, fields) {
+                        db.query('INSERT INTO users (username, email, password, usertype) VALUES (?,?,?,?)', [username, email, bcyptPassword, usertype], function (err, result, fields) {
                             if (err) throw err;
                             req.session.username = username;
                             app.locals.username = username;
+
                             /*Signing in the user when the registration is successful*/
                             db.query('SELECT LAST_INSERT_ID() as id', function (err, results, fields) {
                                 if (err) {
@@ -180,14 +186,16 @@ passport.use('local-signin', new LocalStrategy({
             //assigining locals, with app.locals the variable have scope to this file. only so we hhave
             //defined them abovein the middle ware and make it availble globbaly.
             req.session.username = username;
+            req.session.userID = userID;
             app.locals.usertype = usertype;
             app.locals.username = username;
+            app.locals.userID = userID;
 
             bcrypt.compare(password, hash, function (err, response) {
 
                 if (response === true) {
 
-                    return done(null, {usertype: usertype});
+                    return done(null, {usertype: usertype ,userID : userID});
                 } else {
 
                     return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));

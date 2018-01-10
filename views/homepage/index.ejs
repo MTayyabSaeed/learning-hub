@@ -1,30 +1,171 @@
+<link rel="stylesheet" href="../stylesheets/homepage.css">
 
+
+
+<br>
     <hr class="pretty-line">
-    <br>
-    <center>
-        <p>Welcome to </p>
-        <h1>Advert for our main courses</h1>
-        <h3>You need to sign in or sign up to see our courses</h3>
-        <br>
-    </center>
-    <br>
+
+
+
+    <div class="container">
+        <div class="row">
+            <!-- Carousel -->
+            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                </ol>
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <img src="http://unsplash.s3.amazonaws.com/batch%209/barcelona-boardwalk.jpg" alt="First slide">
+                        <!-- Static Header -->
+                        <div class="header-text hidden-xs">
+                            <div class="col-md-12 text-center">
+                                <h2>
+                                    <span>Welcome to <strong><%= title%></strong></span>
+                                </h2>
+                                <br>
+                                <h3>
+                                    <span>Advert for our main courses</span>
+                                </h3>
+                                <br>
+                                <div class="">
+                                    <a class="btn btn-theme btn-sm btn-min-block" href="/login">Login</a><a class="btn btn-theme btn-sm btn-min-block" href="/signup">Register</a></div>
+                            </div>
+                        </div><!-- /header-text -->
+                    </div>
+                    <div class="item">
+                        <img src="http://unsplash.s3.amazonaws.com/batch%209/barcelona-boardwalk.jpg" alt="Second slide">
+                        <!-- Static Header -->
+                        <div class="header-text hidden-xs">
+                            <div class="col-md-12 text-center">
+                                <h2>
+                                    <span>We Aim To Teach The World</span>
+                                </h2>
+                                <br>
+                                <h3>
+                                    <span>Advert for our main courses</span>
+                                </h3>
+                                <br>
+                                <div class="">
+                                    <a class="btn btn-theme btn-sm btn-min-block" href="#">Login</a><a class="btn btn-theme btn-sm btn-min-block" href="#">Register</a></div>
+                            </div>
+                        </div><!-- /header-text -->
+                    </div>
+                    <div class="item">
+                        <img src="http://unsplash.s3.amazonaws.com/batch%209/barcelona-boardwalk.jpg" alt="Third slide">
+                        <!-- Static Header -->
+                        <div class="header-text hidden-xs">
+                            <div class="col-md-12 text-center">
+                                <h2>
+                                    <span>Welcome to <%= title%></span>
+                                </h2>
+                                <br>
+                                <h3>
+                                    <span>Advert for our main courses</span>
+                                </h3>
+                                <br>
+                                <div class="">
+                                    <% if(locals.isAuthenticated){ %>
+                                    <span>Its a great platform for <%= usertype %></span>
+                                    <% } else { %>>
+                                    <a class="btn btn-theme btn-sm btn-min-block" href="#">Login</a><a class="btn btn-theme btn-sm btn-min-block" href="#">Register</a></div>
+                                <% } %>
+                            </div>
+                        </div><!-- /header-text -->
+                    </div>
+                </div>
+                <!-- Controls -->
+                <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+                <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
+            </div><!-- /carousel -->
+        </div>
+    </div>
+
+
+
+
+
+
     <hr class="pretty-line">
 
 <!--
 CONTATINERS code will come here
 -->
-<div>
-    <center>
-        <strong>
-            <p>Always ask for help where to put the code in the project folders.</p>
-            <p>Me (Tayyab) and Waqaace can help with that.</p>
-        </strong>
-        <!--You can add the container for the content in this place. My location is view/homepage/index.hbs-->
-    </center>
-</div>
+
 <center>
-    <p>Here would come the code for displaying the courses</p>
-</center>
+    <p>Here would displaying the top ranking courses later</p>
 
 
 
+
+
+<hr class="pretty-line">
+
+
+
+    <div class="container">
+        <div class="row" style="text-align:center;">
+            <h2>Bootstrap Dark Footer UI</h2>
+        </div>
+        <!----------- Footer ------------>
+        <footer class="footer-bs">
+            <div class="row">
+                <div class="col-md-3 footer-brand animated fadeInLeft">
+                    <h2>Logo</h2>
+                    <p>Suspendisse hendrerit tellus laoreet luctus pharetra. Aliquam porttitor vitae orci nec ultricies. Curabitur vehicula, libero eget faucibus faucibus, purus erat eleifend enim, porta pellentesque ex mi ut sem.</p>
+                    <p>© 2014 BS3 UI Kit, All rights reserved</p>
+                </div>
+                <div class="col-md-4 footer-nav animated fadeInUp">
+                    <h4>Menu —</h4>
+                    <div class="col-md-6">
+                        <ul class="pages">
+                            <li><a href="#">Top Courses</a></li>
+                            <li><a href="#">Free Courses</a></li>
+                            <li><a href="#">Become an Instructor</a></li>
+                            <li><a href="#">How Can you use this platform</a></li>
+                            <li><a href="#">Advice</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="list">
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Contacts</a></li>
+                            <li><a href="#">Terms & Condition</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-2 footer-social animated fadeInDown">
+                    <h4>Follow Us</h4>
+                    <ul>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">RSS</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 footer-ns animated fadeInRight">
+                    <h4>Newsletter</h4>
+                    <p>A rover wearing a fuzzy suit doesn’t alarm the real penguins</p>
+                    <p>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-envelope"></span></button>
+                      </span>
+                    </div><!-- /input-group -->
+                    </p>
+                </div>
+            </div>
+        </footer>
+        <section style="text-align:center; margin:10px auto;"><p>Designed by <a href="http://enfoplus.net">Muhammad Tayyab Saeed</a></p></section>
+
+    </div>

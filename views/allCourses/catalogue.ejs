@@ -1,0 +1,39 @@
+
+
+
+   <!-- Main component for a primary marketing message or call to action -->
+   <div class="jumbotron col-sm-9" id="mainform">
+	   <div id="signupbox" style="" class="">
+
+		   <div class="panel panel-info">
+
+			   <div class="panel-body" >
+                   <% if (message.length > 0) { %>
+				   <div class="alert alert-success col-sm-12"><%= message %></div>
+                   <% } %>
+                       <%
+					   var i = 1;
+					   data.forEach(function(ind){ %>
+
+						   <div class=" col-sm-4">
+							   <div class="card col-md-8 btn btn-default" style="width: 20rem;">
+								   <img class="card-img-top" src="../images/node.jpg" alt="Node course logo">
+								   <div class="card-block">
+									   <h4 class="card-title"><h2><%=ind.course_title%></h2></h4>
+									   <form style="display:inline-block" action="" method="post">
+										   <input name="course_id" value="<%=ind.course_id%>" type="hidden">
+									   </form>
+									   <a class="btn btn-primary" href="/viewCourse/<%=ind.course_id%>">View</a>
+									   <p class="card-text"><%=ind.course_des%></p>
+								   </div>
+							   </div>
+						   </div>
+
+                       <% i++ }) %>
+
+			   </div>
+		   </div>
+
+
+	   </div>
+   </div>

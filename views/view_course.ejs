@@ -1,0 +1,132 @@
+<html lang="en">
+
+<% include ./partials/headerMain.ejs%>
+     <%- include left_sidebar %>
+   <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron col-sm-9" id="mainform">
+            <div id="signupbox" style="" class="">
+                                                           
+                    <div  class="panel panel-info">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                COURSE CONTENT</div>
+
+                            <div style="float:right; font-size: 85%; position: relative; top:-10px">
+                                <a id="signinlink" class="show_hide" href="">ADD QUIZ</a></div>
+                                    <br>
+                            <!--add space between them-->
+                            <div style="float:right; font-size: 85%; position: relative; top:-10px">
+                                <a id="signinlink" class="show_hide" href="">ADD CHAPTER</a></div>
+
+                        </div>
+
+
+
+
+
+                        <div class="panel-body">
+						<% if (chapter_message.length > 0){ %>
+						<div class="alert alert-success col-sm-12"><%= chapter_message %></div>
+						<% } %>
+							<div id="show_ss"style="border-bottom:1px solid #999;display:none" class="panel-body">
+							<form class="form-horizontal" role="form" action="" method="post" class="form-horizontal">
+							
+							<div class="form-group">
+                                    <label for="chapter_name" class="col-md-3 control-label">Title</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control" name="chapter_name" placeholder="Chapter title" required="" type="text">
+                                    </div>
+                                </div>
+							<div class="form-group">
+                                    <label for="chapter_sub" class="col-md-3 control-label">Subtitle</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control" name="chapter_sub" placeholder="Sub title" required="" type="text">
+                                    </div>
+                                </div>
+							<div class="form-group">
+                                    <label for="chapter_link" class="col-md-3 control-label">Video Link</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control" name="chapter_link" placeholder="Link" required="" type="text">
+                                    </div>
+                                </div>								
+							<div class="form-group">
+                                    <label for="chapter_des" class="col-md-3 control-label">Description</label>
+                                    <div class="col-md-9">
+                                        <textarea class="form-control" name="chapter_des"></textarea>
+                                    </div>
+                                </div>
+						<div class="form-group">
+                                    <!-- Button -->                                       
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <button id="btn-signup" type="submit" class="btn btn-info"><i class="icon-hand-right"></i> &nbsp; Submit</button>
+                                        
+                                    </div>
+                                </div>	
+							</form>
+							</div>	
+							
+<div class="faq_section">
+<h3 class="custom_title"><%= course_title %></h3>
+<p><%= course_des %></p>
+<% if (message.length > 0){ %> 
+<div class=""><%= message %></div> 
+<% } %> 
+<% 
+var i =1;
+data.forEach(function(ind){ %>	
+<div class="faq_outer">
+    <div class="faq_question">
+        <h4><%=ind.chapter_title%>
+            <span style="float:right; font-size: 85%; position: relative; top:-10px;z-index:999;">
+                <a  href="/edit_chapter/<%=ind.chapter_id%>"> Edit </a>
+                <form action="" method="post">
+
+                    <button class="btn btn-info" type="submit" value="Delete" name="delete">Delete</button>
+                </form></span></h4></div>
+<div class="faq_answer">
+    <div class="sub_title"><%=ind.chapter_sub%></div>
+    <div><a href="<%=ind.chapter_link%>" target="_blank">Course video link</a></div>
+    <div><%=ind.chapter_des%></div></div></div>
+
+<% i++ }) %>	
+
+</div>	
+
+
+	<script type="text/javascript">
+	    jQuery('.faq_outer .faq_question').click(function(){
+jQuery(this).parents('.faq_outer').toggleClass('faq_open');
+jQuery('.faq_outer').not(jQuery(this).parents('.faq_outer')).removeClass('faq_open');
+});
+	   jQuery('.show_hide').click(function(){
+	   jQuery('#show_ss').slideToggle('bottom');
+	   return false;
+	   });
+	</script>
+	
+<table width="100%" style="display:none">
+<tr>
+<th>Sr no.</th>
+<th>Course Title</th>
+<th>Chapter Title</th>
+<th>Description</th>
+<th>Action</th>
+</tr>
+<% 
+var i =1;
+data.forEach(function(ind){ %>	
+<tr>
+<td><%=i%></td>
+<td><%=ind.course_title%></td>
+<td><%=ind.chapter_title%></td>
+<td><%=ind.chapter_des%></td>
+<td><a href="#" >View chapter </a></td>
+</tr>
+	<% i++ }) %>
+</table>
+                         </div>
+                    </div>
+              
+                
+         </div>
+      </div>

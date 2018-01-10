@@ -6,15 +6,31 @@ var passport = require('passport');
 var app = express();
 var util = require("util");
 const db = require('../model/database-connection');
+var user = require('../routes/users');
+var inst = require('../routes/instructor');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
     res.render('homepage/index', {title: 'Learning Hub'});
 });
-// router.get('/forum', function (req, res, next) {
-//     res.render('sockets/sockets', {title: 'Learning Hub'});
-//
-// });
+
+router.get('/catalogue', function (req, res, next) {
+
+    message = '';
+    var sql="SELECT * FROM `tbl_courses`";
+
+    db.query(sql, function(err, results){
+
+        //  console.log(results);
+        if(results.length <= 0)
+            message = "No records found!";
+        res.render('allCourses/catalogue', {data:results,message: message,title: 'Courses'});
+    });
+
+});
+
+
+/*------------------------------------------------------------Waqaace Part Start----------------------------------------------------------*/
 
 router.get('/forum', authenticationMiddleware(),  function (req, res, next) {
 
@@ -62,14 +78,6 @@ router.get('/forum/question', function (req, res, next) {
                 res.render('forum/questionDetails', {title: 'Learning Hub', question: question, comments: comments});
 
 
-                // db.query('SELECT * FROM comments WHERE question_id = ?', [id], function (err, result, fields) {
-                //    // if (err)throw error;
-                //
-                //     comments = result;
-                //
-                //
-                //     res.render('sockets/sockets', {title: 'Learning Hub', question: question, comments: result});
-                //
             });
     });
 
@@ -114,52 +122,7 @@ router.post('/forum/addComment', function (req, res, next) {
         // return res.redirect('http://localhost:3000/forum/question?id='+questionId);
 
         res.json('http://localhost:3000/forum/question?id=' + questionId);
-        //  return ;
 
-        // db.query('SELECT * FROM questions WHERE id = ?', [questionId], function (err, result, fields) {
-        //     if (err)throw error;
-        //
-        //     question = result;
-        //
-        //     //  db.query('SELECT * FROM comments WHERE question_id = ?', [id], function (err, result, fields) {
-        //     // if (err)throw error;
-        //
-        //     //  db.query('SELECT user.name,comments.comment FROM user,comments WHERE comments.question_id = ?', [id],
-        //     //    function (err, result, fields) {
-        //
-        //     //  db.query('SELECT * FROM comments c join user u on c.user_id = u.id WHERE c.question_id = ?', [id],
-        //     db.query('SELECT * FROM comments WHERE question_id = ?', [questionId],
-        //         function (err, result, fields) {
-        //
-        //             comments = result;
-        //
-        //             res.render('forum/questionDetails', {title: 'Learning Hub', question: question, comments: comments});
-        //
-        //
-        //             // db.query('SELECT * FROM comments WHERE question_id = ?', [id], function (err, result, fields) {
-        //             //    // if (err)throw error;
-        //             //
-        //             //     comments = result;
-        //             //
-        //             //
-        //             //     res.render('sockets/sockets', {title: 'Learning Hub', question: question, comments: result});
-        //             //
-        //         });
-        // });
-        // db.query('SELECT * FROM questions', function (err, result, fields) {
-        //
-        //     if (err)throw error;
-        //
-        //     console.log("The result from query is " + result);
-        //
-        //     // console.log("the user data is "+util.inspect(req.session.passport.user, false, null));
-        //
-        //     console.log("the user data is " + util.inspect(req.session, false, null));
-        //
-        //     res.render('forum/questionList', {title: 'Learning Hub', questionList: result, user: req.session.username});
-        //
-        //
-        // });
     });
 });
 
@@ -199,34 +162,57 @@ router.post('/forum/comment/upvote', function (req, res, next) {
 
     });
 
-    // db.query('SELECT votes FROM comments WHERE id = ?',[commentID] ,function (err, result, fields) {
-    //     if (err)throw error;
-    //
-    //     console.log("The result from upvoting is " + util.inspect(result, false, null) );
-    //
-    //
-    // });
-    //
-    // db.query('INSERT INTO comments (user_id,question_id,comment) VALUES (?,?,?)',[username,questionId,comment], function (err, result, fields) {
-    //     if (err)throw error;
-    //
-    // });
 
-    //add upvote   //userID from passport   // qusttion from post
+});
 
-})
 
 router.get('/about', function (req, res, next) {
     res.render('aboutLearningHub/about', {title: 'Learning Hub'});
 
 });
 
+
+
+
+
+router.get('/viewAllCourse', function (req, res, next) {
+
+    message = '';
+    chapter_message = '';
+    results = '';
+
+
+    var user =  req.session.username,
+        userId = req.session.userID;
+
+    var sql1="SELECT * FROM `tbl_courses`";
+    var course_title = '';
+    var course_des = '';
+    db.query(sql1, function(err, results){
+        if(results.length <= 0)
+            message = "No data found!";
+        course_title = results[0].course_title;
+        course_des = results[0].course_des;
+    });
+
+    var sql="SELECT * FROM `tbl_chapters`";
+    db.query(sql, function(err, result){
+        if(result.length <= 0)
+            message = "No records found!";
+
+        res.render('viewAllCourse.ejs', {id:userId,user:user,data:result,course_title:course_title,course_des:course_des,message: message,title: 'Courses'});
+    });
+});
+
+
+
+
 /* GET student profile page. */
 router.get('/student', authenticationMiddleware(), function (req, res, next) {
     var username = req.session.username ;
     var usertype = req.session.passport.user.usertype;
     if (usertype  === 'Student'){
-        res.render('student/studentProfile', {for_frontend_username: username});
+        res.render('student/studentProfile', {for_frontend_username: username, usertype: usertype});
     }if(usertype  === 'Instructor'){
         res.redirect('instructor');
     }
@@ -275,14 +261,129 @@ router.get('/signup', function (req, res, next) {
 
 /*------AuthenticationMiddleware() is used to restrict the page until the user is LogedIn---------*/
 router.get('/instructor', authenticationMiddleware(), function (req, res, next) {
-    var username = req.session.username ;
-    var usertype = req.session.passport.user.usertype;
-    if (usertype  === 'Student'){
-        res.redirect('student');
-    }if(usertype  === 'Instructor'){
-        res.render('instructor/instructorProfile', {for_frontend_username: username});
-    }
+    inst.dashboard(req,res,next);
 });
+
+
+// *************************** Instructor Part
+
+router.get('/courses',  function (req, res, next) {
+    inst.courses(req,res,next);
+});
+
+router.post('/courses',  function (req, res, next) {
+    inst.courses(req,res,next);
+});
+
+router.get('/viewCourse/:id',  function (req, res, next) {
+    inst.viewCourse(req,res,next);
+});
+
+//call for create course
+router.get('/create',  function (req, res, next) {
+    inst.create(req,res,next);
+});
+
+
+//call for create course post
+router.post('/create',  function (req, res, next) {
+    inst.create(req,res,next);
+});
+
+//call for create course
+router.get('/edit_course/:id',  function (req, res, next) {
+    inst.edit_course(req,res,next);
+});
+
+
+//call for create course post
+router.post('/edit_course/:id',  function (req, res, next) {
+    inst.edit_course(req,res,next);
+});
+
+
+
+//call for create course
+router.get('/edit_chapter/:id',  function (req, res, next) {
+    inst.edit_chapter(req,res,next);
+});
+
+//call for create course post
+router.post('/edit_chapter/:id',  function (req, res, next) {
+    inst.edit_chapter(req,res,next);
+});
+
+
+router.post('/viewCourse/:id',  function (req, res, next) {
+    inst.viewCourse(req,res,next);
+});
+
+
+//call for quiz page
+router.get('/quiz',  function (req, res, next) {
+    inst.quiz(req,res,next);
+});
+
+
+//call for quiz page
+router.post('/quiz',  function (req, res, next) {
+    inst.quiz(req,res,next);
+});
+
+//call for quiz page
+router.get('/quizzes',  function (req, res, next) {
+    inst.quizzes(req,res,next);
+});
+
+
+//call for quiz page
+router.post('/quizzes',  function (req, res, next) {
+    inst.quizzes(req,res,next);
+});
+
+//call for create course
+router.get('/createQuiz',  function (req, res, next) {
+    inst.createQuiz(req,res,next);
+});
+
+//call for create course post
+router.post('/createQuiz',  function (req, res, next) {
+    inst.createQuiz(req,res,next);
+});
+
+
+//call for courses page
+router.get('/viewQuiz/:id',  function (req, res, next) {
+    inst.viewQuiz(req,res,next);
+});
+
+router.post('/viewQuiz/:id',  function (req, res, next) {
+    inst.viewQuiz(req,res,next);
+});
+
+router.get('/edit_quiz/:id',  function (req, res, next) {
+    inst.edit_quiz(req,res,next);
+});
+
+
+router.post('/edit_quiz/:id',  function (req, res, next) {
+    inst.edit_quiz(req,res,next);
+});
+
+
+router.get('/edit_question/:id',  function (req, res, next) {
+    inst.edit_question(req,res,next);
+});
+
+router.post('/edit_question/:id',  function (req, res, next) {
+    inst.edit_question(req,res,next);
+});
+
+
+router.post('/delete_question/:id',  function (req, res, next) {
+    inst.delete_question(req,res,next);
+});
+
 /*-----------------------SignIn Post Request-------------------------------------*/
 // We will be using the passport authentication function instead of the call back function
 // here the passport authticate will find the local stratgy in the app.js and will pass the
@@ -318,6 +419,9 @@ router.post('/register', passport.authenticate('local-signup', {
         }
     }
 );
+
+
+
 
 
 /*-------------------------------------------------------------------------------------------------*/
