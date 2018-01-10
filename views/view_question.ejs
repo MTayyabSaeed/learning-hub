@@ -1,0 +1,123 @@
+<html lang="en">
+
+<% include ./partials/headerMain.ejs%>
+     <%- include left_sidebar %>
+   <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron col-sm-9" id="mainform">
+            <div id="signupbox" style="" class="">
+                                                           
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <div class="panel-title">Quizzes By Question</div>
+ <div style="float:right; font-size: 85%; position: relative; top:-10px"><a id="signinlink" class="show_hide" href="">Add new question</a></div>
+                        </div> 
+                        <div class="panel-body">
+						<% if (question_message.length > 0){ %>
+						<div class="alert alert-success col-sm-12"><%= question_message %></div>
+						<% } %>
+							<div id="show_ss"style="border-bottom:1px solid #999;display:none" class="panel-body">
+							<form class="form-horizontal" role="form" action="" method="post" class="form-horizontal">
+							
+							<div class="form-group">
+                                    <label for="question" class="col-md-3 control-label">Question</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control" name="question" placeholder="enter question" required="" type="text">
+                                    </div>
+                                </div>
+							<div class="form-group">
+                                    <label for="option1" class="col-md-3 control-label">Option 1</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control" name="option1" placeholder="enter option 1" required="" type="text"><input type="radio" name="answer" value="option1" required />
+                                    </div>
+                                </div>
+							<div class="form-group">
+                                    <label for="option2" class="col-md-3 control-label">Option 2</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control" name="option2" placeholder="enter option 2" required="" type="text"><input type="radio" name="answer" value="option2" required />
+                                    </div>
+                                </div>
+							<div class="form-group">
+                                    <label for="option3" class="col-md-3 control-label">Option 3</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control" name="option3" placeholder="enter option 3" required="" type="text"><input type="radio" name="answer" value="option3" required />
+                                    </div>
+                                </div>								
+							<div class="form-group">
+                                    <label for="option4" class="col-md-3 control-label">Option 4</label>
+                                    <div class="col-md-8">
+                                        <input class="form-control" name="option4" placeholder="enter option 4"  type="text"><input type="radio" name="answer" value="option4" />
+                                    </div>
+                                </div>
+						<div class="form-group">
+                                    <!-- Button -->                                       
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <button id="btn-signup" type="submit" class="btn btn-info"><i class="icon-hand-right"></i> &nbsp; Submit</button>
+                                        
+                                    </div>
+                                </div>	
+							</form>
+							</div>	
+							
+<div class="faq_section">
+<h3 class="custom_title"><%= quiz_title %></h3>
+<p><%= quiz_des %></p>
+<% if (message.length > 0){ %> 
+<div class=""><%= message %></div> 
+<% } %> 
+<% 
+var i =1;
+data.forEach(function(ind){ %>	
+<div class="faq_outer"><div class="faq_question"><h4><%=ind.question%> <span style="float:right; font-size: 85%; position: relative; top:-10px;z-index:999;"> <a  href="/edit_question/<%=ind.question_id%>"> Edit </a><form action="" method="post"><input name="question_id" value="<%=ind.question_id%>" type="hidden"><button class="btn btn-info" type="submit" value="Delete" name="delete">Delete</button></form></span></h4></div>
+<div class="faq_answer">
+<li class="sub_title"><%=ind.option1%></li>
+<li class="sub_title"><%=ind.option2%></li>
+<li class="sub_title"><%=ind.option3%></li>
+<li class="sub_title"><%=ind.option4%></li>
+<div class="sub_title"><strong>Correct ans:</strong><% if(ind.answer =="option1"){ %><%=ind.option1%><% }else if(ind.answer =="option2"){ %><%=ind.option2%><% }if(ind.answer =="option3"){ %><%=ind.option3%><% }if(ind.answer =="option4"){ %><%=ind.option4%><% } %> </div>
+</div></div>
+
+<% i++ }) %>	
+
+</div>	
+
+
+	<script type="text/javascript">
+	    jQuery('.faq_outer .faq_question').click(function(){
+jQuery(this).parents('.faq_outer').toggleClass('faq_open');
+jQuery('.faq_outer').not(jQuery(this).parents('.faq_outer')).removeClass('faq_open');
+});
+	   jQuery('.show_hide').click(function(){
+	   jQuery('#show_ss').slideToggle('bottom');
+	   return false;
+	   });
+	</script>
+	
+<table width="100%" style="display:none">
+<tr>
+<th>Sr no.</th>
+<th>Course Title</th>
+<th>Chapter Title</th>
+<th>Description</th>
+<th>Action</th>
+</tr>
+<% 
+var i =1;
+data.forEach(function(ind){ %>	
+<tr>
+<td><%=i%></td>
+<td><%=ind.quiz_title%></td>
+<td><%=ind.question%></td>
+<td><%=ind.option1%></td>
+<td><%=ind.option1%></td>
+<td><%=ind.option1%></td>
+<td><%=ind.option1%></td>
+<td><a href="#" >View chapter </a></td>
+</tr>
+	<% i++ }) %>
+</table>
+                         </div>
+                    </div>
+              
+                
+         </div>
+      </div>

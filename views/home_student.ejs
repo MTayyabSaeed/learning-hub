@@ -1,0 +1,50 @@
+<html lang="en">
+
+	<% include ./partials/headerMain.ejs%>
+   <!-- Main component for a primary marketing message or call to action -->
+   
+     <%- include left_sidebar_student %>
+      <div class="jumbotron col-sm-9" id="mainform">
+            <div id="signupbox" style="" class="">
+                                                           
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <div class="panel-title">Courses</div>
+                        </div> 
+                        <div class="panel-body" >
+						<% if (message.length > 0) { %>
+						<div class="alert alert-success col-sm-12"><%= message %></div>
+						<% } %>
+						
+						
+						<ul>
+						<% 
+						var i =1;
+						data.forEach(function(ind){ %>
+						<li class="grid">
+						<div class="nt-column-list">
+						<h2><%=ind.course_title%>
+						<span class="">
+						<a class="" href="/viewDetails/<%=ind.course_id%>">View</a>
+						</span>
+						</h2>
+						<ul>
+						<li>
+						<%=ind.course_des%>
+						</li>
+						</ul>
+						</div>
+						</li>
+							<% i++ }) %>
+						</ul>
+
+                         </div>
+                    </div>
+              
+                
+         </div>
+      </div>
+
+	
+	
+	

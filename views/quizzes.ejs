@@ -1,0 +1,49 @@
+<html lang="en">
+
+<% include ./partials/headerMain.ejs%>
+   <!-- Main component for a primary marketing message or call to action -->
+   
+     <%- include left_sidebar %>
+      <div class="jumbotron col-sm-9" id="mainform">
+            <div id="signupbox" style="" class="">
+                                                           
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <div class="panel-title">My Quizzes</div>
+                            <div style="float:right; font-size: 85%; position: relative; top:-10px"><a id="signinlink" href="/createQuiz">Create a quiz</a></div>
+                        </div> 
+                        <div class="panel-body" >
+						<% if (message.length > 0) { %>
+						<div class="alert alert-success col-sm-12"><%= message %></div>
+						<% } %>
+						
+						
+						<ul>
+						<% 
+						var i =1;
+						data.forEach(function(ind){ %>
+						<li class="grid">
+						<div class="nt-column-list">
+						<h2><%=ind.quiz_title%>
+						<span class="">
+						<a class="" href="/viewQuiz/<%=ind.quiz_id%>">View</a>
+						<a class="" href="/edit_quiz/<%=ind.quiz_id%>">Edit</a>
+						<form style="display:inline-block" action="" method="post"><input name="quiz_id" value="<%=ind.quiz_id%>" type="hidden"><button class="" type="submit" value="Delete" name="delete">Delete</button></form>
+						</span>
+						</h2>
+						<ul>
+						<li>
+						<%=ind.quiz_des%>
+						</li>
+						</ul>
+						</div>
+						</li>
+							<% i++ }) %>
+						</ul>
+
+                         </div>
+                    </div>
+              
+                
+         </div>
+      </div>
