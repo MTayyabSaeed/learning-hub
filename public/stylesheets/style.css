@@ -499,15 +499,15 @@ h3.custom_title {
 
 /******28 November****/
 body .container-fluid{padding-left:0; padding-right:0;}
-body .navbar-default {     border-radius: 0px; background-color: #363636;   border-color: #363636; border: none; margin-bottom: 0;}
-body .navbar-default .navbar-nav>li>a {  color: #fff;}
-body .navbar-default .navbar-nav>li>a:hover, body .navbar-default .navbar-nav>li>a:focus {  color: #d8d8d8; }
-body .navbar-default .navbar-brand {  color: #fff;}
+body .navbar-default {  border-radius: 0px; background-color: #363636;   border-color: #363636; border: none; margin-bottom: 0;}
+body .navbar-default .navbar-nav>li>a {  background-color:black ;}
+body .navbar-default .navbar-nav>li>a:hover, body .navbar-default .navbar-nav>li>a:focus {  color: #363636; }
+body .navbar-default .navbar-brand {  color: #363636;}
 body .navbar-default .navbar-brand:hover, body .navbar-default .navbar-brand:focus { color: #ffffff; background-color: transparent;}
 body .navbar-default .navbar-nav>.active>a, body .navbar-default .navbar-nav>.active>a:hover, body .navbar-default .navbar-nav>.active>a:focus { color: #fff;  background-color: #39b5cf;}
 .jk-sidebar ul {  float: none;}
 .jk-sidebar ul li {  display: block; float: none;}
-.jk-sidebar {  background-color: #111111 !important; border-radius: 0;margin-top:48px}
+.jk-sidebar {  background-color: #363636 !important; border-radius: 0;margin-top:48px}
 .container .jumbotron, .container-fluid .jumbotron { border-radius: 0;  background: transparent;}
 .jk-sidebar ul li:hover a { color: #fff !important;}
 .jk-sidebar ul li:hover {  background: #39b5cf !important; border-left: 5px solid #363636;}
